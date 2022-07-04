@@ -1,4 +1,4 @@
 package com.army.ardiary.repository;
 
-public class HomeRepository {
+public interface HomeRepository {
 }
