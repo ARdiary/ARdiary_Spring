@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ardiary
+    profiles:
+      active: dev
+  jwt:
+    secretKey: {Key}
+
+server:
+  port: 8888
