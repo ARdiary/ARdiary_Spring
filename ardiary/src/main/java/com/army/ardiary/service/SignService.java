@@ -20,7 +20,8 @@ public class SignService {
     SignService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-    public UserEntity getNewUser(String email){
+    //해당 email을 갖는 user 생성
+    public UserEntity createNewUser(String email){
         UserEntity userEntity = UserEntity.builder()
                 .email(email)
                 .nickname(email)
@@ -33,11 +34,12 @@ public class SignService {
         return newUser;
     }
 
+    //토큰생성 후 로그인 responseDto 반환
     public LoginResponseDto getLoginResponseDto(String email){
-        UserEntity user = userRepository.selectByEmail(email); // 해당 email 을 가진 user 객체
-        String token = tokenService.createToken(email); //토큰 발급
+        UserEntity user = userRepository.selectByEmail(email);
+        String id = Integer.toString(user.getUserId());
+        String token = tokenService.createToken(id); //토큰 발급
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
-                .userEntity(user)
                 .jwt(token)
                 .build();
         return loginResponseDto;

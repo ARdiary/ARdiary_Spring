@@ -7,6 +7,5 @@ import lombok.Data;
 @Data
 @Builder
 public class LoginResponseDto {
-    UserEntity userEntity;
     String jwt;
 }
