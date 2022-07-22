@@ -17,4 +17,4 @@ spring:
     mapper-locations: mapper/**/*.xml #매퍼.xml 경로
 
 server:
-  port: 8888
+  port: 8088
