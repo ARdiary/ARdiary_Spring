@@ -5,6 +5,16 @@ spring:
       active: dev
   jwt:
     secretKey: {Key}
+#mariadb
+  datasource:
+    url: jdbc:mariadb://localhost:3306/army #접속DB명.(rds쓸때는 localhost부분 엔드포인트로 바꿔주기)
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: admin
+    password: 220324
+#mybatis
+  mybatis:
+    type-aliases-package: com.army.ardiary.domain.entity #entity 경로
+    mapper-locations: mybatis/Mapper.xml #매퍼.xml 경로
 
 server:
   port: 8888
