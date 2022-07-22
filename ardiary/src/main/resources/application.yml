@@ -13,8 +13,8 @@ spring:
     password: 220324
 #mybatis
   mybatis:
-    type-aliases-package: com.army.ardiary.domain.entity #entity 경로
-    mapper-locations: mapper/*.xml #매퍼.xml 경로
+    type-aliases-package: com.army.ardiary.domain.entity #entity 경로(db 조회 결과인 resultType 패키지 사전 지정)
+    mapper-locations: mapper/**/*.xml #매퍼.xml 경로
 
 server:
   port: 8888

@@ -1,9 +1,10 @@
 package com.army.ardiary.repository;
 
 import com.army.ardiary.domain.entity.FollowEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface FollowRepository {
     int insert(FollowEntity followEntity);
     FollowEntity selectById(int followId);
