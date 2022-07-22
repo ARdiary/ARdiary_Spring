@@ -14,7 +14,7 @@ spring:
 #mybatis
   mybatis:
     type-aliases-package: com.army.ardiary.domain.entity #entity 경로
-    mapper-locations: mybatis/Mapper.xml #매퍼.xml 경로
+    mapper-locations: mapper/*.xml #매퍼.xml 경로
 
 server:
   port: 8888
