@@ -4,20 +4,16 @@ import com.army.ardiary.domain.entity.UserEntity;
 import com.army.ardiary.dto.LoginResponseDto;
 import com.army.ardiary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SignService {
     private UserRepository userRepository;
-
     private TokenService tokenService;
 
     @Autowired
-    SignService(TokenService tokenService){
+    SignService(TokenService tokenService, UserRepository userRepository){
         this.tokenService = tokenService;
-    }
-
-    @Autowired
-        //생성자 주입
-    SignService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
     //해당 email을 갖는 user 생성
@@ -43,5 +39,13 @@ public class SignService {
                 .jwt(token)
                 .build();
         return loginResponseDto;
+    }
+
+    //email을 갖는 user의 존재여부 확인
+    public boolean existUserByEmail(String email){
+        if (userRepository.selectByEmail(email)!=null)
+            return true;
+        else
+            return false;
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.UserRepository">
+    <insert id="insert"
+            parameterType="UserEntity"
+            useGeneratedKeys="true"
+            keyProperty="userId"
+            keyColumn="user_id">
+        INSERT INTO user (email, profile_image, nickname, following_num, follower_num, join_date, withdrawal_date)
+        VALUES (#{email}, #{profileImage}, #{nickname}, #{followingNum}, #{followerNum}, #{joinDate}, #{withdrawalDate});
+    </insert>
+
+    <select id="selectById"
+            resultType="UserEntity">
+        SELECT user_id, email, profile_image, nickname,
+        following_num, follower_num, join_date, withdrawal_date
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <update id="update"
+            parameterType="UserEntity"
+            useGeneratedKeys="true"
+            keyProperty="userId"
+            keyColumn="user_id">
+        UPDATE user
+        SET email = #{email},
+        profile_image = #{profileImage},
+        nickname = #{nickname},
+        following_num = #{followingNum},
+        follower_num = #{followerNum},
+        join_date = #{joinDate},
+        withdrawal_date = #{withdrawalDate}
+        WHERE user_id = #{userId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+        FROM user
+        WHERE user_id = #{userId}
+    </delete>
+
+    <select id="selectByEmail" resultType="UserEntity">
+        SELECT user_id, email, profile_image, nickname,
+        following_num, follower_num, join_date,  withdrawal_date
+        FROM user
+        WHERE email = #{email}
+    </select>
+</mapper>
