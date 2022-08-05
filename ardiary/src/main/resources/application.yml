@@ -1,3 +1,7 @@
+#mybatis
+mybatis:
+  type-aliases-package: com.army.ardiary.domain.entity #entity 경로(db 조회 결과인 resultType 패키지 사전 지정)
+  mapper-locations: classpath:mapper/*.xml #매퍼.xml 경로
 spring:
   application:
     name: ardiary
@@ -11,10 +15,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: admin
     password: 20220324
-#mybatis
-  mybatis:
-    type-aliases-package: com.army.ardiary.domain.entity #entity 경로(db 조회 결과인 resultType 패키지 사전 지정)
-    mapper-locations: classpath:mapper/*.xml #매퍼.xml 경로
+
 
 server:
   port: 8088
