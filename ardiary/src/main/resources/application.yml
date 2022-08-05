@@ -11,10 +11,15 @@ spring:
     secretKey: {Key}
 #mariadb
   datasource:
-    url: jdbc:mariadb://armydb.cy6dgaeyzjne.ap-northeast-2.rds.amazonaws.com:3306/ardiary #접속DB명.(rds쓸때는 localhost부분 엔드포인트로 바꿔주기)
+    url: jdbc:mariadb://armydb.cy6dgaeyzjne.ap-northeast-2.rds.amazonaws.com:3306/ardiary_nf #접속DB명.(rds쓸때는 localhost부분 엔드포인트로 바꿔주기). ardiary_nf: no foreign 외래키 속성 제거한 데이터베이스. 외래키 속성 사용하려면 _nf지우면 됨
     driver-class-name: org.mariadb.jdbc.Driver
     username: admin
     password: 20220324
+#swagger
+springdoc:
+  swagger-ui:
+    path: army_api.html
+  packages-to-scan: com.army.ardiary
 
 
 server:

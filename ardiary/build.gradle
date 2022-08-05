@@ -24,8 +24,11 @@ dependencies {
 	//spring-web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	//swagger
-	implementation 'io.springfox:springfox-swagger2:3.0.0' //이건 원래 넣어져 있던거고
-	implementation 'io.springfox:springfox-swagger-ui:3.0.0' //이건 새로 추가함
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+	//implementation 'org.springdoc:springdoc-openapi-core:1.1.49'
+
+	//implementation 'io.springfox:springfox-swagger2:3.0.0' //이건 원래 넣어져 있던거고
+	//implementation 'io.springfox:springfox-swagger-ui:3.0.0' //이건 새로 추가함
 	//lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

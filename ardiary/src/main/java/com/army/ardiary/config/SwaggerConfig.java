@@ -1,19 +1,38 @@
 package com.army.ardiary.config;
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
+import org.springframework.stereotype.Component;
+
 
 @Configuration
+//sprngdoc기본 config
 public class SwaggerConfig {
-
     @Bean
-    public Docket api() {
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("army")
+                .packagesToScan("com.army.ardiary")
+                //.pathsToMatch("/api/**")
+                .build();
+    }
+    @Bean
+    public OpenAPI springShopOpenAPI() {
+        return new OpenAPI()
+                .info(new Info().title("AR Diary API")
+                        .description("한이음 아르미 팀의 백 api 문서")
+                        .version("version 0"));
+    }
+}
+//springfox 기본 config
+/*    public Docket api() {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(false)//swagger 제공 기본 응답 코드. false로 설정하면 안보임
                 .select()
@@ -29,5 +48,4 @@ public class SwaggerConfig {
                 .description("Army swagger config")
                 .version("3.0.0")
                 .build();
-    }
-}
+    }*/
