@@ -3,16 +3,18 @@ package com.army.ardiary.repository;
 import com.army.ardiary.domain.entity.FollowEntity;
 import com.army.ardiary.domain.entity.UserEntity;
 import org.junit.jupiter.api.Test;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
+@MapperScan(basePackages = "com.army.ardiary.repository")
 class FollowRepositoryTest {
-
     @Autowired
     private FollowRepository followRepository;
 
