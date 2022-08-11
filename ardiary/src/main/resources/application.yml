@@ -2,6 +2,12 @@
 mybatis:
   type-aliases-package: com.army.ardiary.domain.entity #entity 경로(db 조회 결과인 resultType 패키지 사전 지정)
   mapper-locations: classpath:mapper/*.xml #매퍼.xml 경로
+#swagger
+#springdoc:
+#  packages-to-scan: com.army.ardiary.controller
+#  swagger-ui:
+#    path: /army_api.html
+  #paths-to-match: /api/**
 spring:
   application:
     name: ardiary
@@ -15,12 +21,13 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: admin
     password: 20220324
-#swagger
-springdoc:
-  swagger-ui:
-    path: army_api.html
-  packages-to-scan: com.army.ardiary
+#springfox 사용 가능
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 
 
 server:
   port: 8088
+  forward-headers-strategy: framework

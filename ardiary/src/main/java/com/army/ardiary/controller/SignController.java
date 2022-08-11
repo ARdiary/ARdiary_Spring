@@ -4,6 +4,7 @@ import com.army.ardiary.domain.entity.UserEntity;
 import com.army.ardiary.dto.EmailRequestDto;
 import com.army.ardiary.dto.LoginResponseDto;
 import com.army.ardiary.service.SignService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 
 
 
-
+@Tag(name = "signUp controller", description = "bear controller desc") //swagger annotation
 @RestController
 public class SignController {
     // SignUp(회원가입) SignIn(로그인)API를 다루는 컨트롤러

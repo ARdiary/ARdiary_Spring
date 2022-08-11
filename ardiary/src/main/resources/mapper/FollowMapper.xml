@@ -25,7 +25,7 @@
             keyColumn="follow_id">
         UPDATE follow
         SET follower = #{follower},
-        followee = #{followee},
+        followee = #{followee}
         WHERE follow_id = #{followId};
     </update>
 
