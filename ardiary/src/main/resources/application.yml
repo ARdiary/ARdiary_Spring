@@ -16,6 +16,10 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: admin
     password: 20220324
+  #springfox 사용 가능
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 server:
   port: 8088
