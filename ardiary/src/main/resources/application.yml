@@ -24,3 +24,7 @@ spring:
 server:
   port: 8088
   forward-headers-strategy: framework
+
+jwt:
+  secretKey: armyJwtSecret
+  accessValidTime: 1000L*60*60

@@ -5,7 +5,7 @@ import com.army.ardiary.dto.EmailRequestDto;
 import com.army.ardiary.dto.LoginResponseDto;
 import com.army.ardiary.service.SignService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,20 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 @Tag(name = "signUp controller", description = "bear controller desc") //swagger annotation
 public class SignController {
     // SignUp(회원가입) SignIn(로그인)API를 다루는 컨트롤러
 
     // signService 생성자 주입
-    private SignService signService;
-    @Autowired
-    SignController(SignService signService){
-        this.signService = signService;
-    }
+    private final SignService signService;
 
     // 회원가입 요청
     @PostMapping("/api/signup")
-    public ResponseEntity join(@RequestBody @Valid EmailRequestDto emailRequestDto){
+    public ResponseEntity<?> join(@RequestBody @Valid EmailRequestDto emailRequestDto){
         String email = emailRequestDto.getEmail();
         // 받은 이메일을 가진 새 user db에 추가
         UserEntity user = signService.createNewUser(email);
@@ -40,7 +37,7 @@ public class SignController {
 
     // 로그인 요청
     @PostMapping("/api/login")
-    public ResponseEntity login(@RequestBody @Valid EmailRequestDto emailRequestDto){
+    public ResponseEntity<?> login(@RequestBody @Valid EmailRequestDto emailRequestDto){
         String email = emailRequestDto.getEmail();
         //해당 email을 가진 user있는지 확인.
         if(!signService.existUserByEmail(email)){ //DB에 user가 없는 경우
