@@ -13,8 +13,7 @@ public class SignService {
     private final UserRepository userRepository;
     private final TokenService tokenService;
 
-    //해당 email을 갖는 user 생성
-    public UserEntity createNewUser(String email){
+    public LoginResponseDto signUp(String email) {
 
         UserEntity userEntity = UserEntity.builder()
                 .email(email)
@@ -25,15 +24,7 @@ public class SignService {
 
         userRepository.insert(userEntity);
         UserEntity newUser = userRepository.selectByEmail(email);
-        return newUser;
-
-    }
-
-    //토큰생성 후 로그인 responseDto 반환
-    public LoginResponseDto getLoginResponseDto(String email){
-
-        UserEntity user = userRepository.selectByEmail(email);
-        String id = Integer.toString(user.getUserId());
+        String id = Integer.toString(newUser.getUserId());
         String token = tokenService.createToken(id); //토큰 발급
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .jwt(token)
@@ -42,8 +33,15 @@ public class SignService {
 
     }
 
-    //email을 갖는 user의 존재여부 확인
-    public boolean existUserByEmail(String email){
-        return userRepository.selectByEmail(email)==null;
+    public LoginResponseDto login(String email) {
+        UserEntity loginUser = userRepository.selectByEmail(email);
+        if (loginUser == null)
+            return null;
+        String id = Integer.toString(loginUser.getUserId());
+        String token = tokenService.createToken(id); //토큰 발급
+        LoginResponseDto loginResponseDto = LoginResponseDto.builder()
+                .jwt(token)
+                .build();
+        return loginResponseDto;
     }
 }
