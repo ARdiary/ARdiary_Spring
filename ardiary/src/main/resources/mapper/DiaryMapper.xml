@@ -12,12 +12,12 @@
     </insert>
     <select id="selectById"
             parameterType="int"
-            resultType="ArrayList">
+            resultType="DiaryEntity">
         SELECT * FROM diary WHERE diary_id=#{diaryId};
     </select>
     <select id="selectByWriter"
             parameterType="int"
-            resultType="DiaryEntity">
+            resultType="ArrayList">
         SELECT * FROM diary WHERE writer=#{writer};
     </select>
     <select id="selectByCameraARId"
