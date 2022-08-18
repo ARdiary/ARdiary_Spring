@@ -27,4 +27,4 @@ server:
 
 jwt:
   secretKey: armyJwtSecret
-  accessValidTime: 1000L*60*60
+  #accessValidTime: 3600000 추후 별도 관리예정
