@@ -17,7 +17,7 @@
     </select>
     <select id="selectByWriter"
             parameterType="int"
-            resultType="DiaryEntity">
+            resultType="ArrayList">
         SELECT * FROM diary WHERE writer=#{writer};
     </select>
     <select id="selectByCameraARId"
