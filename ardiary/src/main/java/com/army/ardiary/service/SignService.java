@@ -25,9 +25,11 @@ public class SignService {
         userRepository.insert(userEntity);
         UserEntity newUser = userRepository.selectByEmail(email);
         String id = Integer.toString(newUser.getUserId());
-        String token = tokenService.createToken(id); //토큰 발급
+        String token = tokenService.createToken(id);
+        String refreshToken = tokenService.createRefreshToken();
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
-                .jwt(token)
+                .accessToken(token)
+                .refreshToken(refreshToken)
                 .build();
         return loginResponseDto;
 
@@ -38,9 +40,11 @@ public class SignService {
         if (loginUser == null)
             return null;
         String id = Integer.toString(loginUser.getUserId());
-        String token = tokenService.createToken(id); //토큰 발급
+        String token = tokenService.createToken(id);
+        String refreshToken = tokenService.createRefreshToken();
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
-                .jwt(token)
+                .accessToken(token)
+                .refreshToken(refreshToken)
                 .build();
         return loginResponseDto;
     }

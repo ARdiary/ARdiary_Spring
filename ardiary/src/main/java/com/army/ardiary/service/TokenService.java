@@ -11,9 +11,10 @@ public class TokenService {
 
     @Value("${jwt.secretKey}")
     private String secretKey;
-    private long tokenValidTime=1000L*60*60;
+    private long accessValidTime = 1000L*60*60; // access 토큰 유효시간: 1시간
+    private long refreshValidTime = 1000L*60*60*24; // refresh 토큰 유효시간: 24시간
 
-    //토큰 생성 후 반환하는 메서드
+    //액세스 토큰 생성 후 반환하는 메서드
     public String createToken(String id) {
 
         //토큰의 키가 되는 subject 를 중복되지않는 고유한 값인 id 로 지정
@@ -24,8 +25,20 @@ public class TokenService {
                 .setHeaderParam("typ", "JWT")
                 .setClaims(claims)
                 .setIssuedAt(now) //생성일 설정
-                .setExpiration(new Date(now.getTime() + tokenValidTime)) //만료일 설정
+                .setExpiration(new Date(now.getTime() + accessValidTime)) //만료일 설정
                 .signWith(SignatureAlgorithm.HS256, secretKey) //서명 시, 사용되는 알고리즘: HS256
+                .compact();
+
+    }
+
+    public String createRefreshToken(){
+
+        Date now = new Date();
+
+        return Jwts.builder()
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + refreshValidTime))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
 
     }
