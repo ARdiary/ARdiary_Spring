@@ -29,7 +29,6 @@ public class SignController {
         LoginResponseDto loginResponseDto = signService.signUp(email);
         return ResponseEntity.status(HttpStatus.CREATED).body(loginResponseDto);// 회원가입 성공
     }
-
     // 로그인 요청
     @PostMapping("/api/login")
     public ResponseEntity<?> login(@RequestBody @Valid EmailRequestDto emailRequestDto){
