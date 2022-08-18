@@ -11,8 +11,7 @@ public class TokenService {
 
     @Value("${jwt.secretKey}")
     private String secretKey;
-    @Value("{jwt.accessValidTime}")
-    private long tokenValidTime;
+    private long tokenValidTime=1000L*60*60;
 
     //토큰 생성 후 반환하는 메서드
     public String createToken(String id) {
