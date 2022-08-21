@@ -17,8 +17,12 @@
     </select>
     <select id="selectByWriter"
             parameterType="int"
-            resultType="ArrayList">
+            resultType="DiaryEntity">
         SELECT * FROM diary WHERE writer=#{writer};
+    </select>
+    <select id="selectAll"
+            resultType="DiaryEntity">
+        SELECT * FROM diary;
     </select>
     <select id="selectByCameraARId"
             parameterType="int"
