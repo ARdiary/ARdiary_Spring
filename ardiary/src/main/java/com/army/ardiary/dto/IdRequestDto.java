@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TokenRequestDto {
-    String jwt;
+public class IdRequestDto {
+    int id;
 }

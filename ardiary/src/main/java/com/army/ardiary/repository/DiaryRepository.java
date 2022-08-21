@@ -12,7 +12,8 @@ public interface DiaryRepository {
     int insert(DiaryEntity diaryEntity);
     DiaryEntity selectById(int diaryId);
     ArrayList<DiaryEntity> selectByWriter(int userId);
-    DiaryEntity  selectByCameraARId(int cameraARId);
+    ArrayList<DiaryEntity> selectAll();
+    ArrayList<DiaryEntity>  selectByCameraARId(int cameraARId);
     int update(DiaryEntity diaryEntity);
     int delete(int diaryId);
 }
