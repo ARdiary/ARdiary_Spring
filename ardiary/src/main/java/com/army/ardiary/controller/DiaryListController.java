@@ -9,9 +9,7 @@ import com.army.ardiary.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -29,9 +27,8 @@ public class DiaryListController {
         DiaryResponseDto diaryResponseDto=diaryListService.listAll();
         return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
     }
-    @PostMapping("/diary/id")
-    public ResponseEntity<?> listDiaryById(@RequestBody @Valid IdRequestDto idRequestDto){
-        int diaryId = idRequestDto.getId();
+    @GetMapping("/diary/{id}")
+    public ResponseEntity<?> listDiaryById(@PathVariable(value = "id") int diaryId){
         DiaryResponseDto diaryResponseDto =diaryListService.listById(diaryId);
         return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
     }
