@@ -4,7 +4,6 @@ import com.army.ardiary.domain.entity.DiaryEntity;
 import com.army.ardiary.dto.DiaryResponseDto;
 import com.army.ardiary.repository.DiaryRepository;
 import io.jsonwebtoken.Claims;
-import com.army.ardiary.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +11,12 @@ import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
-public class DiaryListService {
+public class DiaryService {
 
     private final DiaryRepository diaryRepository;
     private final TokenService tokenService;
 
-    public DiaryResponseDto listMine(String token){
-        Claims claims= tokenService.getJwtContents(token);
-        int userId= Integer.parseInt(claims.getSubject());
+    public DiaryResponseDto findByWriter(int userId){
         ArrayList<DiaryEntity> diaryEntities =diaryRepository.selectByWriter(userId);
         DiaryResponseDto diaryResponseDto= DiaryResponseDto.builder()
                 .diaryList(diaryEntities)
@@ -27,7 +24,7 @@ public class DiaryListService {
         return diaryResponseDto;
     }
 
-    public DiaryResponseDto listAll(){
+    public DiaryResponseDto findAll(){
         ArrayList<DiaryEntity> diaryEntities =diaryRepository.selectAll();
         DiaryResponseDto diaryResponseDto= DiaryResponseDto.builder()
                 .diaryList(diaryEntities)
@@ -35,7 +32,7 @@ public class DiaryListService {
         return diaryResponseDto;
     }
 
-public DiaryResponseDto listById(int id){
+public DiaryResponseDto findById(int id){
     ArrayList<DiaryEntity> diaryEntities = new ArrayList<>();
     DiaryEntity diaryEntity=diaryRepository.selectById(id);
     diaryEntities.add(diaryEntity);
@@ -45,10 +42,9 @@ public DiaryResponseDto listById(int id){
     return diaryResponseDto;
 }
 
-    public DiaryResponseDto listLike(String token){
-        Claims claims= tokenService.getJwtContents(token);
-        int userId= Integer.parseInt(claims.getSubject());
-        DiaryEntity diaryEntity=diaryRepository.selectById(userId);
+//위 함수 오버로딩(찜한 일기목록을 불러올때 사용)
+    public DiaryResponseDto findById(int[] id){
+
         DiaryResponseDto diaryResponseDto= DiaryResponseDto.builder()
                 //.diaryList(diaryEntities)
                 .build();
