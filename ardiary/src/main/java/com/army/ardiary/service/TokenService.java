@@ -16,6 +16,7 @@ public class TokenService {
 
     //액세스 토큰 생성 후 반환하는 메서드
     public String createToken(String id) {
+
         //토큰의 키가 되는 subject 를 중복되지않는 고유한 값인 id 로 지정
         Claims claims = Jwts.claims().setSubject(id);
         Date now = new Date();
