@@ -45,15 +45,14 @@ public DiaryResponseDto listById(int id){
     return diaryResponseDto;
 }
 
-/*    public DiaryResponseDto listLike(String token){
+    public DiaryResponseDto listLike(String token){
         Claims claims= tokenService.getJwtContents(token);
-        int id= Integer.parseInt(claims.getSubject());
-
-        DiaryEntity diaryEntity=diaryRepository.selectById(id);
+        int userId= Integer.parseInt(claims.getSubject());
+        DiaryEntity diaryEntity=diaryRepository.selectById(userId);
         DiaryResponseDto diaryResponseDto= DiaryResponseDto.builder()
-                .diaryList(diaryEntities)
+                //.diaryList(diaryEntities)
                 .build();
         return diaryResponseDto;
-    }*/
+    }
 
 }

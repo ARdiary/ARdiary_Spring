@@ -27,6 +27,7 @@ public class DiaryListController {
         DiaryResponseDto diaryResponseDto=diaryListService.listAll();
         return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
     }
+
     @GetMapping("/diary/{id}")
     public ResponseEntity<?> listDiaryById(@PathVariable(value = "id") int diaryId){
         DiaryResponseDto diaryResponseDto =diaryListService.listById(diaryId);
@@ -38,6 +39,17 @@ public class DiaryListController {
         if(!tokenService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
         }
+        DiaryResponseDto diaryResponseDto=diaryListService.listMine(token);
+        return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
+    }
+
+    @PostMapping("/user/diary/like")
+    public ResponseEntity<?> listDiaryByUserLike(@RequestBody @Valid TokenRequestDto tokenRequestDto){
+        String token= tokenRequestDto.getJwt();
+        //validateToken함수 오류 확인후 후 주석 지우기
+//        if(!tokenService.validateToken(token)){
+ //           return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
+   //     }
         DiaryResponseDto diaryResponseDto=diaryListService.listMine(token);
         return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
     }

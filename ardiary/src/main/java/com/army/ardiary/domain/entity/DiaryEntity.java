@@ -18,6 +18,6 @@ public class DiaryEntity {
     private String image;
     private String video;
     private String audio;
-    private int camerARId;
+    private int cameraARId;
     private int privacyOption;
 }
