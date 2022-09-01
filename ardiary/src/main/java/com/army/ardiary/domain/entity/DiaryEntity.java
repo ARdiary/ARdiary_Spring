@@ -21,3 +21,4 @@ public class DiaryEntity {
     private int cameraARId;
     private int privacyOption;
 }
+
