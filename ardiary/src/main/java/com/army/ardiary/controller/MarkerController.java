@@ -1,4 +1,4 @@
-package com.army.ardiary.domain.entity;
+package com.army.ardiary.controller;
 
 import com.army.ardiary.dto.MarkerListDto;
 import com.army.ardiary.service.MarkerService;
@@ -15,7 +15,7 @@ public class MarkerController {
     private final MarkerService markerService;
 
     @GetMapping("/api/markers")
-    public ResponseEntity<?> findMarkerList(){
+    public ResponseEntity<?> loadMarkerList(){
         MarkerListDto markerListDto = markerService.findMarkerList();
         return ResponseEntity.status(HttpStatus.OK).body(markerListDto);
 
