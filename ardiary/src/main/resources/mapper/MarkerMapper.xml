@@ -36,7 +36,7 @@
     </delete>
 
     <select id="selectAll"
-            resultType="ArrayList">
+            resultType="MarkerEntity">
         SELECT *
         FROM marker
     </select>
