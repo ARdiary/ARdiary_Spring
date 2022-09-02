@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.FollowRepository">
+    <insert id="insert"
+            parameterType="FollowEntity"
+            useGeneratedKeys="true"
+            keyProperty="followId"
+            keyColumn="follow_id">
+        INSERT INTO follow (follower, followee)
+        VALUES (#{follower}, #{followee});
+    </insert>
+
+    <select id="selectById"
+            resultType="FollowEntity">
+        SELECT follow_id, follower, followee
+          FROM follow
+         WHERE follow_id = #{followId}
+    </select>
+
+    <update id="update"
+            parameterType="FollowEntity"
+            useGeneratedKeys="true"
+            keyProperty="followId"
+            keyColumn="follow_id">
+        UPDATE follow
+           SET follower = #{follower},
+               followee = #{followee}
+         WHERE follow_id = #{followId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM follow
+         WHERE follow_id = #{followId}
+    </delete>
+</mapper>
