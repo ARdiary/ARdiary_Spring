@@ -80,7 +80,21 @@ public class DiaryController {
         if(isDelete==0){
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(new ErrorResponse("삭제가 실패했습니다"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        return ResponseEntity.ok("삭제 완료");
+    }
+
+    @PatchMapping("/diary/update/{id}")
+    public ResponseEntity<?> modifyDiary(@PathVariable(value = "id") int diaryId, @RequestBody @Valid DiaryRequestDto diaryRequestDto,@RequestBody @Valid TokenRequestDto tokenRequestDto){
+        /*        String token= tokenRequestDto.getJwt();
+        //토큰 유효성 확인
+        if(!tokenService.validateToken(token)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
+        }
+        //토큰을 통해 사용자 정보 불러오기
+        int userId= Integer.parseInt(tokenService.getJwtContents(token).getSubject());*/
+        int updateDiaryId=diaryService.modifyDiary(diaryId, diaryRequestDto,3);
+        DiaryResponseDto diaryResponseDto = diaryService.findById(updateDiaryId);
+        return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
     }
 
 /*    @PostMapping("/user/diary/like")
