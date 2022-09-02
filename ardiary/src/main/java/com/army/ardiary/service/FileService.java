@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@NoArgsConstructor
 @RequiredArgsConstructor
 public class FileService {
 
