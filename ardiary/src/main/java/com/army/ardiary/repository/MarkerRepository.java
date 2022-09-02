@@ -1,7 +1,12 @@
 package com.army.ardiary.repository;
 
 import com.army.ardiary.domain.entity.MarkerEntity;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+@Repository
+@Mapper
 public interface MarkerRepository {
     int insert(MarkerEntity markerEntity);
 
@@ -10,4 +15,6 @@ public interface MarkerRepository {
     int update(MarkerEntity markerEntity);
 
     int delete(int markerId);
+
+    ArrayList<MarkerEntity> selectAll();
 }
