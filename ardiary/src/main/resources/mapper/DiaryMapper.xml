@@ -7,7 +7,6 @@
             useGeneratedKeys="true"
             keyProperty="diaryId"
             keyColumn="diary_id">
-    <selectKey resultType="int" keyProperty="diaryId" order="AFTER">SELECT LAST_INSERT_ID()</selectKey>
         INSERT INTO diary (writer, date,title,content,image,video,audio,cameraAR_id,privacy_option)
         VALUES (#{writer},curdate(),#{title},#{content},#{image},#{video},#{audio},#{cameraARId},#{privacyOption});
     </insert>
