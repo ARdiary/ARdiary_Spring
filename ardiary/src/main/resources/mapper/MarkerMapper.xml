@@ -7,15 +7,26 @@
             useGeneratedKeys="true"
             keyProperty="markerId"
             keyColumn="marker_id">
-        INSERT INTO marker (markerImage)
-        VALUES #{marker_image};
+        INSERT INTO marker (marker_image)
+        VALUES #{markerImage};
     </insert>
 
     <select id="selectById"
+            parameterType="int"
             resultType="MarkerEntity">
         SELECT marker_id, marker_image
           FROM marker
-         WHERE marker_id = #{markerId}
+         WHERE marker_id = #{markerId};
+    </select>
+    <select id="selectByIds"
+            resultType="MarkerEntity">
+        SELECT marker_id, marker_image
+        FROM marker
+        WHERE marker_id in #{ids};
+    </select>
+    <select id="selectAll"
+            resultType="MarkerEntity">
+        SELECT * FROM marker;
     </select>
 
     <update id="update"
@@ -32,13 +43,6 @@
             parameterType="int">
         DELETE
           FROM marker
-         WHERE marker_id = #{markerId}
+         WHERE marker_id = #{markerId};
     </delete>
-
-    <select id="selectAll"
-            resultType="ArrayList">
-        SELECT *
-        FROM marker
-    </select>
-
 </mapper>

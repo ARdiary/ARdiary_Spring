@@ -12,7 +12,8 @@ public interface CameraARRepository {
     int insert(CameraAREntity cameraAREntity);
     CameraAREntity selectById(int cameraARId);
     ArrayList<CameraAREntity> selectByLatLon(double latitude, double longitude, int distance);
-    ArrayList<CameraAREntity> selectByMarker(int markerId);
+    CameraAREntity selectByMarker(int markerId);
+    ArrayList<CameraAREntity> selectAll();
     int update(CameraAREntity cameraAREntity);
     int delete(int cameraARId);
 }
