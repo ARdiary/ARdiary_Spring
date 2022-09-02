@@ -11,6 +11,7 @@ public interface MarkerRepository {
     int insert(MarkerEntity markerEntity);
 
     MarkerEntity selectById(int markerId);
+    ArrayList<MarkerEntity> selectByIds(int[] markerIds);
 
     int update(MarkerEntity markerEntity);
 
