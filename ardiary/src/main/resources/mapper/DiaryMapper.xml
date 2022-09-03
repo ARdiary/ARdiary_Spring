@@ -10,36 +10,44 @@
         INSERT INTO diary (writer, date,title,content,image,video,audio,cameraAR_id,privacy_option)
         VALUES (#{writer},curdate(),#{title},#{content},#{image},#{video},#{audio},#{cameraARId},#{privacyOption});
     </insert>
+
     <select id="selectById"
             parameterType="int"
             resultType="DiaryEntity">
         SELECT * FROM diary WHERE diary_id=#{diaryId};
     </select>
+
     <select id="selectByWriter"
             parameterType="int"
             resultType="DiaryEntity">
         SELECT * FROM diary WHERE writer=#{writer};
     </select>
+
     <select id="selectAll"
             resultType="DiaryEntity">
         SELECT * FROM diary;
     </select>
+
     <select id="selectByCameraARId"
             parameterType="int"
             resultType="DiaryEntity">
         SELECT * FROM diary WHERE cameraAR_id=#{cameraARId};
     </select>
+
     <update id="update"
             parameterType="DiaryEntity"
             useGeneratedKeys="true"
             keyProperty="diaryId"
             keyColumn="diary_id">
         UPDATE diary
-        SET title=#{title}, content=#{content}, image=#{image}, video=#{video}, audio=#{audio}, cameraAR_id=#{cameraARId}, privacy_option=#{privacyOption}
-        WHERE diary_id=#{diaryId};
+           SET title=#{title}, content=#{content}, image=#{image}, video=#{video}, audio=#{audio}, cameraAR_id=#{cameraARId}, privacy_option=#{privacyOption}
+         WHERE diary_id=#{diaryId};
     </update>
+
     <delete id="delete"
             parameterType="int">
-        DELETE FROM diary WHERE diary_id=#{diaryId};
+        DELETE
+          FROM diary
+         WHERE diary_id=#{diaryId};
     </delete>
 </mapper>
