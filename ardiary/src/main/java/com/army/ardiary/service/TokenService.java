@@ -57,14 +57,14 @@ public class TokenService {
             System.out.println("Token Error");
             return false;
         }
-
     }
 
     //토큰에 담긴 정보(claim)을 반환하는 메소드.
     public Claims getJwtContents(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
-                .parseClaimsJws(token).getBody();
+                .parseClaimsJws(token)
+                .getBody();
         return claims;
 
     }
