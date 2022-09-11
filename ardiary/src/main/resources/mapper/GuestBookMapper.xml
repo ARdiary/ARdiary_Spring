@@ -8,7 +8,7 @@
             keyProperty="guestBookId"
             keyColumn="guestbook_id">
         INSERT INTO guestbook (writer, date, content, like_num, cameraAR_id)
-        VALUES (#{writer}, #{date}, #{content}, #{likeNum}, #{cameraARId});
+        VALUES (#{writer}, curdate(), #{content}, #{likeNum}, #{cameraARId});
     </insert>
 
     <select id="selectById"

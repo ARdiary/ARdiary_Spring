@@ -1,7 +1,11 @@
 package com.army.ardiary.domain.entity;
 
-import java.time.LocalDate;
+import lombok.Builder;
+import lombok.Data;
 
+import java.time.LocalDate;
+@Builder
+@Data
 public class GuestBookEntity {
 
     private int guestBookId;
