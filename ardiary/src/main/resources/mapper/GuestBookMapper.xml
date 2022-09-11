@@ -38,4 +38,12 @@
           FROM guestbook
          WHERE guestbook_id = #{guestBookId}
     </delete>
+
+    <select id="selectByUser"
+            resultType="GuestBookEntity">
+        SELECT guestbook_id, writer, date, content, like_num, cameraAR_id
+          FROM guestbook
+         WHERE user_id = #{userId}
+    </select>
+
 </mapper>

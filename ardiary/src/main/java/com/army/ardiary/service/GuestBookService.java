@@ -6,6 +6,8 @@ import com.army.ardiary.repository.GuestBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @RequiredArgsConstructor
 public class GuestBookService {
@@ -28,5 +30,9 @@ public class GuestBookService {
     }
     public GuestBookEntity findGuestBook(int guestBookId){
         return guestBookRepository.selectById(guestBookId);
+    }
+
+    public ArrayList<GuestBookEntity> findGuestBookListByUser(int userId){
+        return guestBookRepository.selectByUser(userId);
     }
 }
