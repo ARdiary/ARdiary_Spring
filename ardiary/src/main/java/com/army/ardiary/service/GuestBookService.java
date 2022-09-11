@@ -26,4 +26,7 @@ public class GuestBookService {
 
         return newGuestBook;
     }
+    public GuestBookEntity findGuestBook(int guestBookId){
+        return guestBookRepository.selectById(guestBookId);
+    }
 }
