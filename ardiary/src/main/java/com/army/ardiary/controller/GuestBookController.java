@@ -9,10 +9,7 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,5 +29,11 @@ public class GuestBookController {
 
         GuestBookEntity newGuestBook = guestBookService.createGuestBook(userId, guestBookInfo);
         return ResponseEntity.status(HttpStatus.CREATED).body(newGuestBook);
+    }
+
+    @GetMapping("/api/guestbooks/{id}")
+    public ResponseEntity<?> findGuestBook(@PathVariable("id") int id){
+        GuestBookEntity guestBookEntity = guestBookService.findGuestBook(id);
+        return ResponseEntity.status(HttpStatus.OK).body(guestBookEntity);
     }
 }
