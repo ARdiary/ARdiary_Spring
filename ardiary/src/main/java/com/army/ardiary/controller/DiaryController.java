@@ -14,25 +14,27 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/diaries")
 public class DiaryController {
     //다이어리 목록을 불러오는 api를 다루는 컨트롤러
 
     private final DiaryService diaryService;
     private final TokenService tokenService;
 
-    @GetMapping("/diary")
+    @GetMapping()
     public ResponseEntity<?> loadDiary(){
         DiaryResponseDto diaryResponseDto= diaryService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
     }
 
-    @GetMapping("/api/diary/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> loadDiaryById(@PathVariable(value = "id") int diaryId){
         DiaryResponseDto diaryResponseDto = diaryService.findById(diaryId);
         return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
     }
 
-    @GetMapping("/api/user/diary")
+    //이거 유저로 빠질 예정
+    @GetMapping("api/user/diary")
     public ResponseEntity<?> loadDiaryByUser(@RequestBody @Valid TokenRequestDto tokenRequestDto){
         String token= tokenRequestDto.getJwt();
         //토큰 유효성 확인
@@ -46,7 +48,7 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.OK).body(diaryResponseDto);
     }
 
-    @PostMapping("/diary")
+    @PostMapping("")
     public ResponseEntity<?> writeDiary(@RequestHeader(value = "Authorization") String token, DiaryRequestDto diaryRequestDto){
         //토큰 에서 id뽑는거 안됨.
         //String token= tokenRequestDto.getJwt();
@@ -66,7 +68,7 @@ public class DiaryController {
     }
 
     //@RequestMapping(value = "/diary/delete/{id}",method = {RequestMethod.GET,RequestMethod.POST})
-    @DeleteMapping("/api/diary/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDiary(@PathVariable(value = "id") int diaryId, @RequestBody @Valid TokenRequestDto tokenRequestDto){
 /*        String token= tokenRequestDto.getJwt();
         //토큰 유효성 확인
@@ -82,7 +84,7 @@ public class DiaryController {
         return ResponseEntity.ok("삭제 완료");
     }
 
-    @PatchMapping("/diary/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<?> modifyDiary(@PathVariable(value = "id") int diaryId, @RequestBody @Valid DiaryRequestDto diaryRequestDto,@RequestBody @Valid TokenRequestDto tokenRequestDto){
         /*        String token= tokenRequestDto.getJwt();
         //토큰 유효성 확인
