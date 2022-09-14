@@ -28,3 +28,15 @@ server:
 jwt:
   secretKey: armyJwtSecret
   #accessValidTime: 3600000 추후 별도 관리예정
+
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIAYPNIJYGAWB47IOHU
+      secretKey: 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
+    s3:
+      bucket: army-bucket0324
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false #프로젝트 배포시 default로 cloudFormatino구성을 시작하기 때문에 따로 설정되어있지 않으면 프로젝트가 실행되지 않으므로 해당 기능을 꺼놓음
