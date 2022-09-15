@@ -21,13 +21,13 @@ public class GuestBookController {
     public final GuestBookService guestBookService;
 
     @PostMapping("/api/guestbooks")
-    public ResponseEntity<?> writeGuestBook(@RequestHeader(value = "Authorization") String token, @RequestBody GuestBookInfoDto guestBookInfo){
-
+    public ResponseEntity<?> writeGuestBook(@RequestHeader(value = "Authorization", required = false) String headerToken, @RequestBody GuestBookInfoDto guestBookInfo){
+        String token = headerToken.substring("Bearer ".length());
+        System.out.println(token);
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 작성 권한이 없습니다."));
 
-        Claims claims = tokenService.getJwtContents(token);
-        int userId = Integer.parseInt(claims.getSubject());
+        int userId = tokenService.findUserIdByJwt(token);
 
         GuestBookEntity newGuestBook = guestBookService.createGuestBook(userId, guestBookInfo);
         return ResponseEntity.status(HttpStatus.CREATED).body(newGuestBook);
