@@ -44,7 +44,7 @@ public class FileService {
                 //UUID: 범용 고유 식별자
                 String uuid = UUID.randomUUID().toString();
                 //lastIndexOf("__")앞까지가 uuid임. 그 이후는 서버로 전송된 상태의 파일 이름
-                String savefileName = type+ File.separator + uuid + "__" + fileName;
+                String savefileName = type+ "/" + uuid + "__" + fileName;
 
                  try {
                     ObjectMetadata objMeta = new ObjectMetadata();
@@ -57,8 +57,11 @@ public class FileService {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }}
-        return filePaths.toString();
+            }
+            return filePaths.toString();}
+        else {
+            return null;
+        }
     }
 
 
