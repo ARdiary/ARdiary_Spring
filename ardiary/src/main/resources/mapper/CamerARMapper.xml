@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.CameraARRepository">
+    <insert id="insert"
+            parameterType="CameraAREntity"
+            useGeneratedKeys="true"
+            keyProperty="cameraARId"
+            keyColumn="cameraAR_id">
+        INSERT INTO follow (follower, followee)
+        VALUES (#{follower}, #{followee});
+    </insert>
+
+    <select id="selectById"
+            resultType="CameraAREntity">
+        SELECT *
+          FROM cameraAR
+         WHERE cameraAR_id = #{cameraARId}
+    </select>
+
+    <select id="selectAll"
+            resultType="CameraAREntity">
+        SELECT *
+        FROM cameraAR
+    </select>
+    <select id="selectByLatLon"
+            resultType="CameraAREntity">
+        SELECT *,(((acos(sin((#{latitude}*pi()/180)) * sin((latitude*pi()/180))+cos((#{latitude}*pi()/180))*cos((latitude*pi()/180))*cos(((#{longitude}-longitude)*pi()/180))))*180/pi())*60*1.1515*1.609344) as distance
+        FROM cameraAR
+        WHERE distance &lt; #{distance};
+    </select>
+
+    <update id="update"
+            parameterType="CameraAREntity"
+            useGeneratedKeys="true"
+            keyProperty="followId"
+            keyColumn="follow_id">
+        UPDATE follow
+           SET follower = #{follower},
+               followee = #{followee}
+         WHERE follow_id = #{followId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM follow
+         WHERE follow_id = #{followId}
+    </delete>
+</mapper>

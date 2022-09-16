@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.MarkerRepository">
+    <insert id="insert"
+            parameterType="MarkerEntity"
+            useGeneratedKeys="true"
+            keyProperty="markerId"
+            keyColumn="marker_id">
+        INSERT INTO marker (marker_image)
+        VALUES #{markerImage};
+    </insert>
+
+    <select id="selectById"
+            parameterType="int"
+            resultType="MarkerEntity">
+        SELECT marker_id, marker_image
+          FROM marker
+         WHERE marker_id = #{markerId};
+    </select>
+    <select id="selectByIds"
+            resultType="MarkerEntity">
+        SELECT marker_id, marker_image
+        FROM marker
+        WHERE marker_id in #{ids};
+    </select>
+    <select id="selectAll"
+            resultType="MarkerEntity">
+        SELECT * FROM marker;
+    </select>
+
+    <update id="update"
+            parameterType="MarkerEntity"
+            useGeneratedKeys="true"
+            keyProperty="markerId"
+            keyColumn="marker_id">
+        UPDATE marker
+           SET marker_image = #{markerImage}
+         WHERE marker_id = #{markerId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM marker
+         WHERE marker_id = #{markerId};
+    </delete>
+</mapper>
