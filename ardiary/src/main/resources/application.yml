@@ -22,8 +22,9 @@ server:
   forward-headers-strategy: framework
 
 jwt:
-  secretKey: armyJwtSecret
+  secretKey: armyJwtSecret12411128094456375876587
   #accessValidTime: 3600000 추후 별도 관리예정
+
 
 cloud:
   aws:

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.GuestBookRepository">
+    <insert id="insert"
+            parameterType="GuestBookEntity"
+            useGeneratedKeys="true"
+            keyProperty="guestBookId"
+            keyColumn="guestbook_id">
+        INSERT INTO guestbook (writer, date, content, like_num, cameraAR_id)
+        VALUES (#{writer}, curdate(), #{content}, #{likeNum}, #{cameraARId});
+    </insert>
+
+    <select id="selectById"
+            resultType="GuestBookEntity">
+        SELECT guestbook_id, writer, date, content, like_num, cameraAR_id
+          FROM guestbook
+         WHERE guestbook_id = #{guestBookId}
+    </select>
+
+    <update id="update"
+            parameterType="GuestBookEntity"
+            useGeneratedKeys="true"
+            keyProperty="guestBookId"
+            keyColumn="guestbook_id">
+        UPDATE guestbook
+           SET  writer = #{writer},
+                date = #{date},
+                content = #{content},
+                like_num = #{likeNum},
+                cameraAR_id = #{cameraARId}
+         WHERE guestbook_id = #{guestBookId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM guestbook
+         WHERE guestbook_id = #{guestBookId}
+    </delete>
+
+    <select id="selectByUser"
+            resultType="GuestBookEntity">
+        SELECT guestbook_id, writer, date, content, like_num, cameraAR_id
+          FROM guestbook
+         WHERE user_id = #{userId}
+    </select>
+
+</mapper>
