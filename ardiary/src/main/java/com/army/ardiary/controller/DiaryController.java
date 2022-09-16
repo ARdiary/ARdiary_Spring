@@ -53,14 +53,14 @@ public class DiaryController {
         //토큰 에서 id뽑는거 안됨.
         //String token= tokenRequestDto.getJwt();
         //토큰 유효성 확인
-        if(token==null){ //토큰을 보내지않은 경우
+/*        if(token==null){ //토큰을 보내지않은 경우
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("잘못된 요청입니다. 토큰도 함께 보내주세요."));
         }
         if(!tokenService.validateToken(token)){ //토큰이 유효하지않은 경우: 지금 이 에러 발생. 토큰이 변조된 상황.
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
         }
         //토큰을 통해 사용자 정보 불러오기
-        int userId= Integer.parseInt(tokenService.getJwtContents(token).getSubject());
+        int userId= Integer.parseInt(tokenService.getJwtContents(token).getSubject());*/
         //일기 생성 후, 작성된 일기 불러오기
         int newDiaryId=diaryService.createDiary(diaryRequestDto,3);
         DiaryResponseDto diaryResponseDto=diaryService.findById(newDiaryId);
@@ -69,7 +69,7 @@ public class DiaryController {
 
     //@RequestMapping(value = "/diary/delete/{id}",method = {RequestMethod.GET,RequestMethod.POST})
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteDiary(@PathVariable(value = "id") int diaryId, @RequestBody @Valid TokenRequestDto tokenRequestDto){
+    public ResponseEntity<?> deleteDiary(@PathVariable(value = "id") int diaryId, @RequestHeader(value = "Authorization") String token){
 /*        String token= tokenRequestDto.getJwt();
         //토큰 유효성 확인
         if(!tokenService.validateToken(token)){
