@@ -55,14 +55,15 @@ public DiaryResponseDto findById(int id){
     }
 
     public int createDiary(DiaryRequestDto diaryRequestDto, int writer){
-        String imagePath=fileService.uploadFiles(diaryRequestDto.getImages(),"diary");
-        String videoPath=fileService.uploadFiles(diaryRequestDto.getVideos(),"diary");
-        String audioPath=fileService.uploadFiles(diaryRequestDto.getAudios(),"diary");
+
+        String imagePath=fileService.uploadFiles(diaryRequestDto.getImages(),"diary","image");
+        String videoPath=fileService.uploadFiles(diaryRequestDto.getVideos(),"diary","video");
+        String audioPath=fileService.uploadFiles(diaryRequestDto.getAudios(),"diary","audio");
 
         DiaryEntity newDiaryEntity= DiaryEntity.builder()
                 .writer(writer).title(diaryRequestDto.getTitle()).content(diaryRequestDto.getContent())
                 .privacyOption(diaryRequestDto.getPrivacyOption())
-                .image(imagePath).video(videoPath).audio(audioPath)
+                .image(imagePath).video(videoPath).audio(audioPath).cameraARId(diaryRequestDto.getCameraARId())
                 .build();
         diaryRepository.insert(newDiaryEntity);
         int newDiaryID= newDiaryEntity.getDiaryId();
@@ -93,15 +94,15 @@ public DiaryResponseDto findById(int id){
         if(diaryRequestDto.getContent()!=null&&diaryRequestDto.getContent().length()>0)
             updateDiaryEntity.setContent(diaryRequestDto.getContent());
         if(diaryRequestDto.getImages()!=null&&diaryRequestDto.getImages().length>0){
-            String imagePath=fileService.uploadFiles(diaryRequestDto.getImages(),"diary");
+            String imagePath=fileService.uploadFiles(diaryRequestDto.getImages(),"diary","image");
             updateDiaryEntity.setImage(imagePath);
         }
         if(diaryRequestDto.getVideos()!=null&&diaryRequestDto.getVideos().length>0){
-            String videoPath=fileService.uploadFiles(diaryRequestDto.getVideos(),"diary");
+            String videoPath=fileService.uploadFiles(diaryRequestDto.getVideos(),"diary","video");
             updateDiaryEntity.setVideo(videoPath);
         }
         if(diaryRequestDto.getImages()!=null&&diaryRequestDto.getImages().length>0){
-            String audioPath=fileService.uploadFiles(diaryRequestDto.getAudios(),"diary");
+            String audioPath=fileService.uploadFiles(diaryRequestDto.getAudios(),"diary","audio");
             updateDiaryEntity.setVideo(audioPath);
         }
 
