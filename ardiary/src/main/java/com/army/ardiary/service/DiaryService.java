@@ -55,9 +55,9 @@ public DiaryResponseDto findById(int id){
     }
 
     public int createDiary(DiaryRequestDto diaryRequestDto, int writer){
-        String imagePath=fileService.uploadFiles(diaryRequestDto.getImages());
-        String videoPath=fileService.uploadFiles(diaryRequestDto.getVideos());
-        String audioPath=fileService.uploadFiles(diaryRequestDto.getAudios());
+        String imagePath=fileService.uploadFiles(diaryRequestDto.getImages(),"diary");
+        String videoPath=fileService.uploadFiles(diaryRequestDto.getVideos(),"diary");
+        String audioPath=fileService.uploadFiles(diaryRequestDto.getAudios(),"diary");
 
         DiaryEntity newDiaryEntity= DiaryEntity.builder()
                 .writer(writer).title(diaryRequestDto.getTitle()).content(diaryRequestDto.getContent())
@@ -93,15 +93,15 @@ public DiaryResponseDto findById(int id){
         if(diaryRequestDto.getContent()!=null&&diaryRequestDto.getContent().length()>0)
             updateDiaryEntity.setContent(diaryRequestDto.getContent());
         if(diaryRequestDto.getImages()!=null&&diaryRequestDto.getImages().length>0){
-            String imagePath=fileService.uploadFiles(diaryRequestDto.getImages());
+            String imagePath=fileService.uploadFiles(diaryRequestDto.getImages(),"diary");
             updateDiaryEntity.setImage(imagePath);
         }
         if(diaryRequestDto.getVideos()!=null&&diaryRequestDto.getVideos().length>0){
-            String videoPath=fileService.uploadFiles(diaryRequestDto.getVideos());
+            String videoPath=fileService.uploadFiles(diaryRequestDto.getVideos(),"diary");
             updateDiaryEntity.setVideo(videoPath);
         }
         if(diaryRequestDto.getImages()!=null&&diaryRequestDto.getImages().length>0){
-            String audioPath=fileService.uploadFiles(diaryRequestDto.getAudios());
+            String audioPath=fileService.uploadFiles(diaryRequestDto.getAudios(),"diary");
             updateDiaryEntity.setVideo(audioPath);
         }
 
