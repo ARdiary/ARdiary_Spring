@@ -1,0 +1,24 @@
+name: Deploy to EC2
+on:
+  push:
+    branches: [ "release" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Deploy main branch
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Connect ssh and git pull
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_PEM_KEY }}
+          script: |
+            cd ~/some-repo
+            git reset --hard
+            git pull origin main
