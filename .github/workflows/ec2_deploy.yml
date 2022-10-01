@@ -1,7 +1,7 @@
 name: Deploy to EC2
 on:
   push:
-    branches: [ release ]
+    branches: [ "release" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,6 +19,6 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_PEM_KEY }}
           script: |
-            cd ~/some-repo
-            git reset --hard
-            git pull origin main
+            cd army/ARdiray_Spring/ardiary/build/libs/
+            git checkout release
+            git pull origin release
