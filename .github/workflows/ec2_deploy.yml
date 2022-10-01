@@ -19,6 +19,12 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_PEM_KEY }}
           script: |
-            cd army/ARdiray_Spring/ardiary/build/libs/
+            cd army/ARdiray_Spring/ardiary/
             git checkout release
             git pull origin release
+            kill `ps -ef | grep ardiary-0.0.1-SNAPSHOT.jar | grep -v grep | awk '{print $2}'`
+            sudo ./gradlew build
+            cd build/libs/
+            nohup java -jar ardiary-0.0.1-SNAPSHOT.jar 2>&1 &
+            
+            
