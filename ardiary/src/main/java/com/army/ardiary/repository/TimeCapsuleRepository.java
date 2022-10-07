@@ -4,9 +4,9 @@ import com.army.ardiary.domain.entity.TimeCapsuleEntity;
 
 public interface TimeCapsuleRepository {
 
-    TimeCapsuleEntity insert(TimeCapsuleEntity timeCapsuleEntity);
+    int insert(TimeCapsuleEntity timeCapsuleEntity);
 
-    int selectById(int timeCapsuleId);
+    TimeCapsuleEntity selectById(int timeCapsuleId);
 
     int update(TimeCapsuleEntity timeCapsuleEntity);
 
