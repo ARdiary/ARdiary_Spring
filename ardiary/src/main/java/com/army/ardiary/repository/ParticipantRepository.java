@@ -2,7 +2,7 @@ package com.army.ardiary.repository;
 
 import com.army.ardiary.domain.entity.ParticipantEntity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface ParticipantRepository {
 
@@ -14,5 +14,5 @@ public interface ParticipantRepository {
 
     int delete(int id);
 
-    List<ParticipantEntity> selectByTimeCapsuleId(int timeCapsuleId);
+    ArrayList<ParticipantEntity> selectByTimeCapsuleId(int timeCapsuleId);
 }

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,4 +53,15 @@ public class TimeCapsuleService {
                 .build();
         return timeCapsuleRequestDto;
     }
+
+    public TimeCapsuleRequestDto findTimeCapsule(int timeCapsuleId){
+        TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);
+        ArrayList<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleId);
+        TimeCapsuleRequestDto timeCapsuleRequestDto = TimeCapsuleRequestDto.builder()
+                .newTimeCapsule(timeCapsuleEntity)
+                .participants(participantEntities)
+                .build();
+        return timeCapsuleRequestDto;
+    }
 }
+
