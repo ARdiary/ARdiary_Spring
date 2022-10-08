@@ -48,7 +48,7 @@ public class TimeCapsuleService {
         }
 
         TimeCapsuleRequestDto timeCapsuleRequestDto = TimeCapsuleRequestDto.builder()
-                .newTimeCapsule(newTimeCapsule)
+                .timeCapsule(newTimeCapsule)
                 .participants(participantEntities)
                 .build();
         return timeCapsuleRequestDto;
@@ -58,9 +58,26 @@ public class TimeCapsuleService {
         TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);
         ArrayList<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleId);
         TimeCapsuleRequestDto timeCapsuleRequestDto = TimeCapsuleRequestDto.builder()
-                .newTimeCapsule(timeCapsuleEntity)
+                .timeCapsule(timeCapsuleEntity)
                 .participants(participantEntities)
                 .build();
+        return timeCapsuleRequestDto;
+    }
+
+    public TimeCapsuleRequestDto delete(int timeCapsuleId){
+        TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);
+        ArrayList<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleId);
+        TimeCapsuleRequestDto timeCapsuleRequestDto = TimeCapsuleRequestDto.builder()
+                .timeCapsule(timeCapsuleEntity)
+                .participants(participantEntities)
+                .build();
+
+        timeCapsuleRepository.delete(timeCapsuleId);
+        for(ParticipantEntity participantEntity: participantEntities){
+            int id = participantEntity.getParticipantId();
+            participantRepository.delete(id);
+        }
+
         return timeCapsuleRequestDto;
     }
 }

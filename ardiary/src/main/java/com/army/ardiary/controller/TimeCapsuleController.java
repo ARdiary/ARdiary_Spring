@@ -34,4 +34,13 @@ public class TimeCapsuleController {
         TimeCapsuleRequestDto timeCapsuleRequestDto = timeCapsuleService.findTimeCapsule(id);
         return ResponseEntity.status(HttpStatus.OK).body(timeCapsuleRequestDto);
     }
+
+    @DeleteMapping("/api/timecapsules/{id}")
+    public ResponseEntity<?> deleteTimecapsule(@RequestHeader(value = "Authorization") String headerToken, @PathVariable int id) {
+        String token = headerToken.substring("Bearer ".length());
+        if (token == null || !tokenService.validateToken(token))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 작성 권한이 없습니다."));
+        TimeCapsuleRequestDto timeCapsuleRequestDto = timeCapsuleService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(timeCapsuleRequestDto);
+    }
 }
