@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 @Builder
 public class TimeCapsuleRequestDto {
-    TimeCapsuleEntity newTimeCapsule;
+    TimeCapsuleEntity timeCapsule;
     ArrayList<ParticipantEntity> participants;
 }
