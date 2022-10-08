@@ -24,8 +24,7 @@ public class SignService {
 
         userRepository.insert(userEntity);
         UserEntity newUser = userRepository.selectByEmail(email);
-        String id = Integer.toString(newUser.getUserId());
-        String token = tokenService.createToken(id);
+        String token = tokenService.createToken(newUser.getUserId());
         String refreshToken = tokenService.createRefreshToken();
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .accessToken(token)
@@ -39,8 +38,7 @@ public class SignService {
         UserEntity loginUser = userRepository.selectByEmail(email);
         if (loginUser == null)
             return null;
-        String id = Integer.toString(loginUser.getUserId());
-        String token = tokenService.createToken(id);
+        String token = tokenService.createToken(loginUser.getUserId());
         String refreshToken = tokenService.createRefreshToken();
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .accessToken(token)
