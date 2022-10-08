@@ -35,4 +35,11 @@
           FROM participant
          WHERE participant_id = #{participantId}
     </delete>
+
+    <select id="selectById"
+            resultType="ParticipantEntity">
+        SELECT participant_id, timecapsule_id, user_id
+          FROM participant
+         WHERE timecapsule_id = #{timeCapsuleId}
+    </select>
 </mapper>
