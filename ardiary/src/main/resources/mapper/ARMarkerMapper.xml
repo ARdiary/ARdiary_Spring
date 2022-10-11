@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.army.ardiary.repository.CameraARRepository">
+<mapper namespace="com.army.ardiary.repository.ARMarkerRepository">
     <insert id="insert"
-            parameterType="CameraAREntity"
+            parameterType="ARMarkerEntity"
             useGeneratedKeys="true"
-            keyProperty="cameraARId"
-            keyColumn="cameraAR_id">
+            keyProperty="ARMarkerId"
+            keyColumn="ARmarker_id">
         INSERT INTO follow (follower, followee)
         VALUES (#{follower}, #{followee});
     </insert>
 
     <select id="selectById"
-            resultType="CameraAREntity">
+            resultType="ARMarkerEntity">
         SELECT *
-          FROM cameraAR
-         WHERE cameraAR_id = #{cameraARId}
+          FROM ARmarker
+         WHERE ARmarker_id = #{ARMarkerId}
     </select>
 
     <select id="selectAll"
-            resultType="CameraAREntity">
+            resultType="ARMarkerEntity">
         SELECT *
-        FROM cameraAR
+        FROM ARmarker
     </select>
     <select id="selectByLatLon"
-            resultType="CameraAREntity">
+            resultType="ARMarkerEntity">
         SELECT *,(((acos(sin((#{latitude}*pi()/180)) * sin((latitude*pi()/180))+cos((#{latitude}*pi()/180))*cos((latitude*pi()/180))*cos(((#{longitude}-longitude)*pi()/180))))*180/pi())*60*1.1515*1.609344) as distance
-        FROM cameraAR
+        FROM ARmarker
         WHERE distance &lt; #{distance};
     </select>
 
     <update id="update"
-            parameterType="CameraAREntity"
+            parameterType="ARMarkerEntity"
             useGeneratedKeys="true"
             keyProperty="followId"
             keyColumn="follow_id">

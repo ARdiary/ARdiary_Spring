@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MarkerEntity {
-    private int markerId;
+public class MarkerImageEntity {
+    private int markerImageId;
     private String markerImage;
 }
