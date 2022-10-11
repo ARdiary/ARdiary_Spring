@@ -33,8 +33,8 @@
     <update id="update"
             parameterType="ARMarkerEntity"
             useGeneratedKeys="true"
-            keyProperty="followId"
-            keyColumn="follow_id">
+            keyProperty="ARMarkerId"
+            keyColumn="ARmarker_id">
         UPDATE follow
            SET follower = #{follower},
                followee = #{followee}
@@ -44,7 +44,7 @@
     <delete id="delete"
             parameterType="int">
         DELETE
-          FROM follow
+          FROM ARMarker
          WHERE follow_id = #{followId}
     </delete>
 </mapper>
