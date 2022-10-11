@@ -14,19 +14,19 @@
     <select id="selectById"
             parameterType="int"
             resultType="MarkerImageEntity">
-        SELECT marker_id, marker_image_image
+        SELECT marker_image_id, marker_image
           FROM marker_image
          WHERE marker_image_id = #{markerImageId};
     </select>
     <select id="selectByIds"
             resultType="MarkerImageEntity">
         SELECT marker_image_id, marker_image
-        FROM marker
-        WHERE marker_id in #{ids};
+        FROM marker_image
+        WHERE marker_image_id in #{ids};
     </select>
     <select id="selectAll"
             resultType="MarkerImageEntity">
-        SELECT * FROM marker;
+        SELECT * FROM marker_image;
     </select>
 
     <update id="update"
@@ -34,15 +34,15 @@
             useGeneratedKeys="true"
             keyProperty="markerImageId"
             keyColumn="marker_id">
-        UPDATE marker
+        UPDATE marker_image
            SET marker_image = #{markerImage}
-         WHERE marker_id = #{markerImageId};
+         WHERE marker_image_id = #{markerImageId};
     </update>
 
     <delete id="delete"
             parameterType="int">
         DELETE
-          FROM marker
-         WHERE marker_id = #{markerImageId};
+          FROM marker_image
+         WHERE marker_image_id = #{markerImageId};
     </delete>
 </mapper>
