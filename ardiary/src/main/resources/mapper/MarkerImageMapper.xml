@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.army.ardiary.repository.MarkerRepository">
+<mapper namespace="com.army.ardiary.repository.MarkerImageRepository">
     <insert id="insert"
-            parameterType="MarkerEntity"
+            parameterType="MarkerImageEntity"
             useGeneratedKeys="true"
-            keyProperty="markerId"
-            keyColumn="marker_id">
-        INSERT INTO marker (marker_image)
+            keyProperty="markerImageId"
+            keyColumn="marker_image_id">
+        INSERT INTO marker_image (marker_image)
         VALUES #{markerImage};
     </insert>
 
     <select id="selectById"
             parameterType="int"
-            resultType="MarkerEntity">
-        SELECT marker_id, marker_image
-          FROM marker
-         WHERE marker_id = #{markerId};
+            resultType="MarkerImageEntity">
+        SELECT marker_id, marker_image_image
+          FROM marker_image
+         WHERE marker_image_id = #{markerImageId};
     </select>
     <select id="selectByIds"
-            resultType="MarkerEntity">
-        SELECT marker_id, marker_image
+            resultType="MarkerImageEntity">
+        SELECT marker_image_id, marker_image
         FROM marker
         WHERE marker_id in #{ids};
     </select>
     <select id="selectAll"
-            resultType="MarkerEntity">
+            resultType="MarkerImageEntity">
         SELECT * FROM marker;
     </select>
 
     <update id="update"
-            parameterType="MarkerEntity"
+            parameterType="MarkerImageEntity"
             useGeneratedKeys="true"
-            keyProperty="markerId"
+            keyProperty="markerImageId"
             keyColumn="marker_id">
         UPDATE marker
            SET marker_image = #{markerImage}
-         WHERE marker_id = #{markerId};
+         WHERE marker_id = #{markerImageId};
     </update>
 
     <delete id="delete"
             parameterType="int">
         DELETE
           FROM marker
-         WHERE marker_id = #{markerId};
+         WHERE marker_id = #{markerImageId};
     </delete>
 </mapper>

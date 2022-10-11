@@ -1,12 +1,7 @@
 package com.army.ardiary.controller;
 
-import com.army.ardiary.dto.CameraARRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,8 +15,8 @@ public class CameraARController {
     }*/
 /*    @PostMapping("")
     ResponseEntity<?> createCameraAR(@RequestBody @Valid CameraARRequestDto cameraARRequestDto){
-        int newCameraARId=cameraARService.createCameraAR(cameraARRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newCameraARId);
+        int newARMarkerId=cameraARService.createCameraAR(cameraARRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newARMarkerId);
     }*/
 
 
