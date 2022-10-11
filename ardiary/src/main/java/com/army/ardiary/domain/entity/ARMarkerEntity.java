@@ -11,4 +11,5 @@ private String specifyImg;
 private double latitude;
 private double longitude;
 private int markerImageId;
+private String contentType;
 }

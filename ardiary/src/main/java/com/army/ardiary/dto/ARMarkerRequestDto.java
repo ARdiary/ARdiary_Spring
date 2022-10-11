@@ -11,4 +11,5 @@ public class ARMarkerRequestDto {
     double latitude;
     double longitude;
     int markerImageId;
+    String contentType;
 }

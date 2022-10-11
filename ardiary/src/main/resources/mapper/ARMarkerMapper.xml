@@ -7,8 +7,8 @@
             useGeneratedKeys="true"
             keyProperty="ARMarkerId"
             keyColumn="ARmarker_id">
-        INSERT INTO follow (follower, followee)
-        VALUES (#{follower}, #{followee});
+        INSERT INTO ARmarker (specifyingImg, latitude, longitude,marker_image_id, content_type)
+        VALUES (#{specifyImg}, #{latitude}, #{longitude}, #{markerImageId}), #{contentType};
     </insert>
 
     <select id="selectById"
