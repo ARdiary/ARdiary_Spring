@@ -7,7 +7,7 @@
             useGeneratedKeys="true"
             keyProperty="userId"
             keyColumn="user_id">
-        INSERT INTO user (email, profile_image, nickname, following_num, follower_num, join_date, withdrawal_date)
+        INSERT IGNORE INTO user (email, profile_image, nickname, following_num, follower_num, join_date, withdrawal_date)
         VALUES (#{email}, #{profileImage}, #{nickname}, #{followingNum}, #{followerNum}, #{joinDate}, #{withdrawalDate});
     </insert>
 
