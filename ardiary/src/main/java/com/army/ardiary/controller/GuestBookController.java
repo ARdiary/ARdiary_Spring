@@ -32,13 +32,13 @@ public class GuestBookController {
     }
 
     @GetMapping("/api/guestbooks/{id}")
-    public ResponseEntity<?> findGuestBook(@PathVariable("id") int id){
+    public ResponseEntity<?> loadGuestBook(@PathVariable("id") int id){
         GuestBookEntity guestBookEntity = guestBookService.findGuestBook(id);
         return ResponseEntity.status(HttpStatus.OK).body(guestBookEntity);
     }
 
     @GetMapping("/api/guestbooks")
-    public ResponseEntity<?> findGuestBookListByUser(@RequestHeader(value = "Authorization") String headerToken) {
+    public ResponseEntity<?> loadGuestBookListByUser(@RequestHeader(value = "Authorization") String headerToken) {
         String token = headerToken.substring("Bearer ".length());
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token))
@@ -48,7 +48,7 @@ public class GuestBookController {
     }
 
     @PatchMapping("/api/guestbooks/{id}/content")
-    public ResponseEntity<?> changeContent(@RequestHeader(value = "Authorization") String headerToken, @PathVariable("id") int guestBookId, @RequestBody GuestBookContentDto newContent){
+    public ResponseEntity<?> modifyContent(@RequestHeader(value = "Authorization") String headerToken, @PathVariable("id") int guestBookId, @RequestBody GuestBookContentDto newContent){
         String token = headerToken.substring("Bearer ".length());
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token)||!guestBookService.isUser(userId, guestBookId))
