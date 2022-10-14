@@ -36,7 +36,7 @@
          WHERE participant_id = #{participantId}
     </delete>
 
-    <select id="selectById"
+    <select id="selectByTimeCapsuleId"
             resultType="ParticipantEntity">
         SELECT participant_id, timecapsule_id, user_id
           FROM participant
