@@ -2,7 +2,7 @@ package com.army.ardiary.service;
 
 import com.army.ardiary.domain.entity.DiaryEntity;
 import com.army.ardiary.dto.DiaryRequestDto;
-import com.army.ardiary.dto.DiaryResponseDto;
+import com.army.ardiary.dto.DiaryListDto;
 import com.army.ardiary.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,40 +18,48 @@ public class DiaryService {
     private final TokenService tokenService;
     private final FileService fileService;
 
-    public DiaryResponseDto findByWriter(int userId){
+    public DiaryListDto findByWriter(int userId){
         ArrayList<DiaryEntity> diaryEntities =diaryRepository.selectByWriter(userId);
         for(DiaryEntity diaryEntity: diaryEntities){
         }
-        DiaryResponseDto diaryResponseDto= DiaryResponseDto.builder()
+        DiaryListDto diaryListDto = DiaryListDto.builder()
                 .diaryList(diaryEntities)
                 .build();
-        return diaryResponseDto;
+        return diaryListDto;
     }
 
-    public DiaryResponseDto findAll(){
+    public DiaryListDto findAll(){
         ArrayList<DiaryEntity> diaryEntities =diaryRepository.selectAll();
-        DiaryResponseDto diaryResponseDto= DiaryResponseDto.builder()
+        DiaryListDto diaryListDto = DiaryListDto.builder()
                 .diaryList(diaryEntities)
                 .build();
-        return diaryResponseDto;
+        return diaryListDto;
     }
 
-public DiaryResponseDto findById(int id){
+public DiaryListDto findById(int id){
     ArrayList<DiaryEntity> diaryEntities = new ArrayList<>();
     DiaryEntity diaryEntity=diaryRepository.selectById(id);
     diaryEntities.add(diaryEntity);
-    DiaryResponseDto diaryResponseDto= DiaryResponseDto.builder()
+    DiaryListDto diaryListDto = DiaryListDto.builder()
             .diaryList(diaryEntities)
             .build();
-    return diaryResponseDto;
+    return diaryListDto;
 }
 
+    public DiaryListDto findByMarker(int id){
+        ArrayList<DiaryEntity> diaryEntities = diaryRepository.selectByARMarkerId(id);
+        DiaryListDto diaryListDto = DiaryListDto.builder()
+                .diaryList(diaryEntities)
+                .build();
+        return diaryListDto;
+    }
+
 //위 함수 오버로딩(찜한 일기목록을 불러올때 사용)
-    public DiaryResponseDto findById(List<Integer> id){
-        DiaryResponseDto diaryResponseDto= DiaryResponseDto.builder()
+    public DiaryListDto findById(List<Integer> id){
+        DiaryListDto diaryListDto = DiaryListDto.builder()
                 //.diaryList(diaryEntities)
                 .build();
-        return diaryResponseDto;
+        return diaryListDto;
     }
 
     public int createDiary(DiaryRequestDto diaryRequestDto, int writer){
@@ -63,7 +71,7 @@ public DiaryResponseDto findById(int id){
         DiaryEntity newDiaryEntity= DiaryEntity.builder()
                 .writer(writer).title(diaryRequestDto.getTitle()).content(diaryRequestDto.getContent())
                 .privacyOption(diaryRequestDto.getPrivacyOption())
-                .image(imagePath).video(videoPath).audio(audioPath).cameraARId(diaryRequestDto.getCameraARId())
+                .image(imagePath).video(videoPath).audio(audioPath).ARMarkerId(diaryRequestDto.getARMarkerId())
                 .build();
         diaryRepository.insert(newDiaryEntity);
         int newDiaryID= newDiaryEntity.getDiaryId();
@@ -112,7 +120,7 @@ public DiaryResponseDto findById(int id){
             }
         } catch (Exception e) {
         }
-        
+        updateDiaryEntity.setARMarkerId(diaryRequestDto.getARMarkerId());
         diaryRepository.update(updateDiaryEntity);
         int updateDiaryId=updateDiaryEntity.getDiaryId();
         return updateDiaryId;

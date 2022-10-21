@@ -7,8 +7,8 @@
             useGeneratedKeys="true"
             keyProperty="diaryId"
             keyColumn="diary_id">
-        INSERT INTO diary (writer, date,title,content,image,video,audio,cameraAR_id,privacy_option)
-        VALUES (#{writer},curdate(),#{title},#{content},#{image},#{video},#{audio},#{cameraARId},#{privacyOption});
+        INSERT INTO diary (writer, date,title,content,image,video,audio,ARmarker_id,privacy_option)
+        VALUES (#{writer},curdate(),#{title},#{content},#{image},#{video},#{audio},#{ARMarkerId},#{privacyOption});
     </insert>
 
     <select id="selectById"
@@ -28,10 +28,10 @@
         SELECT * FROM diary;
     </select>
 
-    <select id="selectByCameraARId"
+    <select id="selectByARMarkerId"
             parameterType="int"
             resultType="DiaryEntity">
-        SELECT * FROM diary WHERE cameraAR_id=#{cameraARId};
+        SELECT * FROM diary WHERE ARmarker_id=#{ARMarkerId};
     </select>
 
     <update id="update"
@@ -40,7 +40,7 @@
             keyProperty="diaryId"
             keyColumn="diary_id">
         UPDATE diary
-           SET title=#{title}, content=#{content}, image=#{image}, video=#{video}, audio=#{audio}, cameraAR_id=#{cameraARId}, privacy_option=#{privacyOption}
+           SET title=#{title}, content=#{content}, image=#{image}, video=#{video}, audio=#{audio}, ARmarker_id=#{ARMarkerId}, privacy_option=#{privacyOption}
          WHERE diary_id=#{diaryId};
     </update>
 

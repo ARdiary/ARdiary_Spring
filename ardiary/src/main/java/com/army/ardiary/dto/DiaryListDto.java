@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 @Data
 @Builder
-public class DiaryResponseDto {
+public class DiaryListDto {
     ArrayList<DiaryEntity> diaryList;
 }

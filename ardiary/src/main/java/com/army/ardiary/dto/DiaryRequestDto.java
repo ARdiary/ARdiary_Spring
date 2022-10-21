@@ -18,5 +18,5 @@ public class DiaryRequestDto {
     MultipartFile[] videos;
     MultipartFile[] audios;
     int privacyOption;
-    int cameraARId;
+    int ARMarkerId;
 }
