@@ -6,4 +6,5 @@ import lombok.Data;
 public class GuestBookInfoDto {
     String writer;
     String content;
+    int ARMarkerId;
 }

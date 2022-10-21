@@ -18,5 +18,5 @@ public class GuestBookEntity {
 
     private int likeNum;
 
-    private int cameraARId;
+    private int ARMarkerId;
 }

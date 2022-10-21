@@ -20,7 +20,7 @@ public class GuestBookService {
                         .writer(userId)
                         .content(guestBookInfo.getContent())
                         .likeNum(0)
-                        .cameraARId(0)
+                        .ARMarkerId(guestBookInfo.getARMarkerId())
                         .build();
 
         guestBookRepository.insert(guestBookEntity);
