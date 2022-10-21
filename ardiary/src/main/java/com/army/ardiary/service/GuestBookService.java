@@ -20,7 +20,7 @@ public class GuestBookService {
                         .writer(userId)
                         .content(content.getContent())
                         .likeNum(0)
-                        .ARMarkerId(guestBookInfo.getARMarkerId())
+                        .ARMarkerId(content.getARMarkerId())
                         .build();
 
         guestBookRepository.insert(guestBookEntity);
