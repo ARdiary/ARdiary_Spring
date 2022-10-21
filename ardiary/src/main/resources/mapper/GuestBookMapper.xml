@@ -43,7 +43,7 @@
             resultType="GuestBookEntity">
         SELECT guestbook_id, writer, date, content, like_num, ARmarker_id
           FROM guestbook
-         WHERE user_id = #{userId}
+         WHERE writer = #{writer}
     </select>
 
 </mapper>
