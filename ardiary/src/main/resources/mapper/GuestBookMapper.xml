@@ -7,13 +7,13 @@
             useGeneratedKeys="true"
             keyProperty="guestBookId"
             keyColumn="guestbook_id">
-        INSERT INTO guestbook (writer, date, content, like_num, cameraAR_id)
-        VALUES (#{writer}, curdate(), #{content}, #{likeNum}, #{cameraARId});
+        INSERT INTO guestbook (writer, date, content, like_num, ARmarker_id)
+        VALUES (#{writer}, curdate(), #{content}, #{likeNum}, #{ARMarkerId});
     </insert>
 
     <select id="selectById"
             resultType="GuestBookEntity">
-        SELECT guestbook_id, writer, date, content, like_num, cameraAR_id
+        SELECT guestbook_id, writer, date, content, like_num, ARmarker_id
           FROM guestbook
          WHERE guestbook_id = #{guestBookId}
     </select>
@@ -28,7 +28,7 @@
                 date = #{date},
                 content = #{content},
                 like_num = #{likeNum},
-                cameraAR_id = #{cameraARId}
+                ARmarker_id = #{ARMarkerId}
          WHERE guestbook_id = #{guestBookId};
     </update>
 
@@ -41,7 +41,7 @@
 
     <select id="selectByUser"
             resultType="GuestBookEntity">
-        SELECT guestbook_id, writer, date, content, like_num, cameraAR_id
+        SELECT guestbook_id, writer, date, content, like_num, ARmarker_id
           FROM guestbook
          WHERE writer = #{writer}
     </select>

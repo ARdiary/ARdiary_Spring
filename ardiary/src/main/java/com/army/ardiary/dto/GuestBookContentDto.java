@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class GuestBookContentDto {
     String content;
+    int ARMarkerId;
 }
