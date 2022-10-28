@@ -3,7 +3,6 @@ package com.army.ardiary.service;
 import com.army.ardiary.domain.entity.DiaryEntity;
 import com.army.ardiary.dto.DiaryDto;
 import com.army.ardiary.dto.DiaryRequestDto;
-import com.army.ardiary.dto.DiaryListDto;
 import com.army.ardiary.repository.DiaryRepository;
 import com.army.ardiary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +33,7 @@ public class DiaryService {
                     .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
                     .privacyOption(diaryEntity.getPrivacyOption())
                     .content(diaryEntity.getContent())
-                    .writer(userRepository.getNickname(userId))
+                    .writer(userRepository.selectById(userId).getNickname())
                     .build();
             diaryList.add(diaryDto);
         }
@@ -51,7 +50,7 @@ public class DiaryService {
                     .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
                     .privacyOption(diaryEntity.getPrivacyOption())
                     .content(diaryEntity.getContent())
-                    .writer(userRepository.getNickname(diaryEntity.getWriter()))
+                    .writer(userRepository.selectById(diaryEntity.getWriter()).getNickname())
                     .build();
             diaryList.add(diaryDto);
         }
@@ -66,7 +65,7 @@ public DiaryDto findById(int id){
             .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
             .privacyOption(diaryEntity.getPrivacyOption())
             .content(diaryEntity.getContent())
-            .writer(userRepository.getNickname(diaryEntity.getWriter()))
+            .writer(userRepository.selectById(diaryEntity.getWriter()).getNickname())
             .build();
     return diaryDto;
 }
@@ -79,7 +78,7 @@ public DiaryDto findById(int id){
                 .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
                 .privacyOption(diaryEntity.getPrivacyOption())
                 .content(diaryEntity.getContent())
-                .writer(userRepository.getNickname(diaryEntity.getWriter()))
+                .writer(userRepository.selectById(diaryEntity.getWriter()).getNickname())
                 .build();
         return diaryDto;
     }
@@ -95,7 +94,7 @@ public DiaryDto findById(int id){
                     .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
                     .privacyOption(diaryEntity.getPrivacyOption())
                     .content(diaryEntity.getContent())
-                    .writer(userRepository.getNickname(diaryEntity.getWriter()))
+                    .writer(userRepository.selectById(diaryEntity.getWriter()).getNickname())
                     .build();
             diaryList.add(diaryDto);
         }
