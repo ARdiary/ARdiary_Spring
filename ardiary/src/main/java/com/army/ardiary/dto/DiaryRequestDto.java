@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.util.List;
 
 @Data
-@Builder
 @RequiredArgsConstructor
 public class DiaryRequestDto {
     String title;

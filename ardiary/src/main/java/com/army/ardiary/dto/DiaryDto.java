@@ -1,14 +1,13 @@
 package com.army.ardiary.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.sql.Date;
 
 @Data
 @Builder
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class DiaryDto {
     private int diaryId;
     private String writer;
