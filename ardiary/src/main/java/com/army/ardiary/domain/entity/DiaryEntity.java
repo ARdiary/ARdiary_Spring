@@ -18,7 +18,7 @@ public class DiaryEntity {
     private String image;
     private String video;
     private String audio;
-    private int cameraARId;
+    private int ARMarkerId;
     private int privacyOption;
 }
 
