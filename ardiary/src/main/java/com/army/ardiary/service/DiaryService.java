@@ -5,6 +5,7 @@ import com.army.ardiary.dto.DiaryRequestDto;
 import com.army.ardiary.dto.DiaryListDto;
 import com.army.ardiary.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Marker;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
     private final TokenService tokenService;
     private final FileService fileService;
+    private final MarkerService markerService;
 
     public DiaryListDto findByWriter(int userId){
         ArrayList<DiaryEntity> diaryEntities =diaryRepository.selectByWriter(userId);
@@ -82,7 +84,7 @@ public DiaryListDto findById(int id){
         DiaryEntity diaryEntity=diaryRepository.selectById(diaryId);
         if(diaryEntity.getWriter()==writer){
             int isSuccess=diaryRepository.delete(diaryId);
-            if(isSuccess==1){
+            if(isSuccess==1&&markerService.delete(diaryEntity.getARMarkerId())==1){
                 return 1;
             }
         }
