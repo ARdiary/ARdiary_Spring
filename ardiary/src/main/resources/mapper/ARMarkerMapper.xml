@@ -8,20 +8,20 @@
             keyProperty="ARMarkerId"
             keyColumn="ARmarker_id">
         INSERT INTO ARmarker (specifyingImg, latitude, longitude,marker_image_id, content_type)
-        VALUES (#{specifyImg}, #{latitude}, #{longitude}, #{markerImageId}), #{contentType};
+        VALUES (#{specifyImg}, #{latitude}, #{longitude}, #{markerImageId}, #{contentType});
     </insert>
 
     <select id="selectById"
             resultType="ARMarkerEntity">
         SELECT *
           FROM ARmarker
-         WHERE ARmarker_id = #{ARMarkerId}
+         WHERE ARmarker_id = #{ARMarkerId};
     </select>
 
     <select id="selectAll"
             resultType="ARMarkerEntity">
         SELECT *
-        FROM ARmarker
+        FROM ARmarker;
     </select>
     <select id="selectByLatLon"
             resultType="ARMarkerEntity">
@@ -35,16 +35,19 @@
             useGeneratedKeys="true"
             keyProperty="ARMarkerId"
             keyColumn="ARmarker_id">
-        UPDATE follow
-           SET follower = #{follower},
-               followee = #{followee}
-         WHERE follow_id = #{followId};
+        UPDATE ARmarker
+           SET specifyingImg=#{specifyImg},
+               latitude=#{latitude},
+               longitude=#{longitude},
+               marker_image_id=#{markerImageId},
+               content_type=#{contentType}
+         WHERE ARmarker_id = #{ARMarkerId};
     </update>
 
     <delete id="delete"
             parameterType="int">
         DELETE
           FROM ARMarker
-         WHERE follow_id = #{followId}
+         WHERE ARmarker_id = #{ARMarkerId};
     </delete>
 </mapper>
