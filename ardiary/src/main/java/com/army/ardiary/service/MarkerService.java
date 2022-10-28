@@ -1,6 +1,7 @@
 package com.army.ardiary.service;
 
 import com.army.ardiary.domain.entity.ARMarkerEntity;
+import com.army.ardiary.domain.entity.GuestBookEntity;
 import com.army.ardiary.domain.entity.MarkerImageEntity;
 import com.army.ardiary.dto.ARMarkerRequestDto;
 import com.army.ardiary.dto.MarkerImageListDto;
@@ -81,5 +82,10 @@ public class MarkerService {
                 .markerList(markerList)
                 .build();
         return selectedARMarkerListDto;
+    }
+
+    public int delete(int id){
+        int isSuccess=aRMarkerRepository.delete(id);
+        return isSuccess;
     }
 }
