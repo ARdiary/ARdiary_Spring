@@ -1,7 +1,8 @@
 package com.army.ardiary.controller;
 
+import com.army.ardiary.domain.entity.DiaryEntity;
+import com.army.ardiary.dto.DiaryDto;
 import com.army.ardiary.dto.DiaryRequestDto;
-import com.army.ardiary.dto.DiaryListDto;
 import com.army.ardiary.dto.ErrorResponse;
 import com.army.ardiary.service.DiaryService;
 import com.army.ardiary.service.TokenService;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,14 +25,14 @@ public class DiaryController {
 
     @GetMapping()
     public ResponseEntity<?> loadDiary(){
-        DiaryListDto diaryListDto = diaryService.findAll();
+        List<DiaryDto> diaryListDto=diaryService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(diaryListDto);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> loadDiaryById(@PathVariable(value = "id") int diaryId){
-        DiaryListDto diaryListDto = diaryService.findById(diaryId);
-        return ResponseEntity.status(HttpStatus.OK).body(diaryListDto);
+        DiaryDto diaryDto = diaryService.findById(diaryId);
+        return ResponseEntity.status(HttpStatus.OK).body(diaryDto);
     }
 
     //이거 유저로 빠질 예정
@@ -43,14 +46,14 @@ public class DiaryController {
         //토큰을 통해 사용자 정보 불러오기
         int userId = tokenService.findUserIdByJwt(token);
         //다이어리 불러오기
-        DiaryListDto diaryListDto = diaryService.findByWriter(userId);
+        List<DiaryDto> diaryListDto= diaryService.findByWriter(userId);
         return ResponseEntity.status(HttpStatus.OK).body(diaryListDto);
     }
 
     @GetMapping("/marker")
     public ResponseEntity<?> loadDiaryByMarker(@RequestParam("id") int markerId){
-        DiaryListDto diaryListDto = diaryService.findByMarker(markerId);
-        return ResponseEntity.status(HttpStatus.OK).body(diaryListDto);
+        DiaryDto diaryDto = diaryService.findByMarker(markerId);
+        return ResponseEntity.status(HttpStatus.OK).body(diaryDto);
     }
 
     @PostMapping("")
@@ -67,8 +70,8 @@ public class DiaryController {
         int userId = tokenService.findUserIdByJwt(token);
         //일기 생성 후, 작성된 일기 불러오기
         int newDiaryId=diaryService.createDiary(diaryRequestDto,userId);
-        DiaryListDto diaryListDto =diaryService.findById(newDiaryId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(diaryListDto);
+        DiaryDto diaryDto =diaryService.findById(newDiaryId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(diaryDto);
     }
 
     //@RequestMapping(value = "/diary/delete/{id}",method = {RequestMethod.GET,RequestMethod.POST})
@@ -98,8 +101,8 @@ public class DiaryController {
         //토큰을 통해 사용자 정보 불러오기
         int userId = tokenService.findUserIdByJwt(token);
         int updateDiaryId=diaryService.modifyDiary(diaryId, diaryRequestDto,userId);
-        DiaryListDto diaryListDto = diaryService.findById(updateDiaryId);
-        return ResponseEntity.status(HttpStatus.OK).body(diaryListDto);
+        DiaryDto diaryDto = diaryService.findById(updateDiaryId);
+        return ResponseEntity.status(HttpStatus.OK).body(diaryDto);
     }
 
 /*    @PostMapping("/user/diary/like")

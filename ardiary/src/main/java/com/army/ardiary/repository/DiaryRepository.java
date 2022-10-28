@@ -13,7 +13,7 @@ public interface DiaryRepository {
     DiaryEntity selectById(int diaryId);
     ArrayList<DiaryEntity> selectByWriter(int userId);
     ArrayList<DiaryEntity> selectAll();
-    ArrayList<DiaryEntity>  selectByARMarkerId(int ARMarkerId);
+    DiaryEntity selectByARMarkerId(int ARMarkerId);
     int update(DiaryEntity diaryEntity);
     int delete(int diaryId);
 }

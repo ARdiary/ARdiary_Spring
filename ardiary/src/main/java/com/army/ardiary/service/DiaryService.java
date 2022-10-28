@@ -1,13 +1,16 @@
 package com.army.ardiary.service;
 
 import com.army.ardiary.domain.entity.DiaryEntity;
+import com.army.ardiary.dto.DiaryDto;
 import com.army.ardiary.dto.DiaryRequestDto;
 import com.army.ardiary.dto.DiaryListDto;
 import com.army.ardiary.repository.DiaryRepository;
+import com.army.ardiary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Marker;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,49 +22,84 @@ public class DiaryService {
     private final TokenService tokenService;
     private final FileService fileService;
     private final MarkerService markerService;
+    private final UserRepository userRepository;
 
-    public DiaryListDto findByWriter(int userId){
+    public List<DiaryDto> findByWriter(int userId){
         ArrayList<DiaryEntity> diaryEntities =diaryRepository.selectByWriter(userId);
+        List<DiaryDto> diaryList= new ArrayList<>();
         for(DiaryEntity diaryEntity: diaryEntities){
+            DiaryDto diaryDto = DiaryDto.builder()
+                    .diaryId(diaryEntity.getDiaryId()).date(diaryEntity.getDate())
+                    .ARMarkerId(diaryEntity.getARMarkerId())
+                    .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
+                    .privacyOption(diaryEntity.getPrivacyOption())
+                    .content(diaryEntity.getContent())
+                    .writer(userRepository.getNickname(userId))
+                    .build();
+            diaryList.add(diaryDto);
         }
-        DiaryListDto diaryListDto = DiaryListDto.builder()
-                .diaryList(diaryEntities)
-                .build();
-        return diaryListDto;
+        return diaryList;
     }
 
-    public DiaryListDto findAll(){
+    public List<DiaryDto> findAll(){
         ArrayList<DiaryEntity> diaryEntities =diaryRepository.selectAll();
-        DiaryListDto diaryListDto = DiaryListDto.builder()
-                .diaryList(diaryEntities)
-                .build();
-        return diaryListDto;
+        List<DiaryDto> diaryList= new ArrayList<>();
+        for(DiaryEntity diaryEntity: diaryEntities){
+            DiaryDto diaryDto = DiaryDto.builder()
+                    .diaryId(diaryEntity.getDiaryId()).date(diaryEntity.getDate())
+                    .ARMarkerId(diaryEntity.getARMarkerId())
+                    .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
+                    .privacyOption(diaryEntity.getPrivacyOption())
+                    .content(diaryEntity.getContent())
+                    .writer(userRepository.getNickname(diaryEntity.getWriter()))
+                    .build();
+            diaryList.add(diaryDto);
+        }
+        return diaryList;
     }
 
-public DiaryListDto findById(int id){
-    ArrayList<DiaryEntity> diaryEntities = new ArrayList<>();
+public DiaryDto findById(int id){
     DiaryEntity diaryEntity=diaryRepository.selectById(id);
-    diaryEntities.add(diaryEntity);
-    DiaryListDto diaryListDto = DiaryListDto.builder()
-            .diaryList(diaryEntities)
+    DiaryDto diaryDto = DiaryDto.builder()
+            .diaryId(diaryEntity.getDiaryId()).date(diaryEntity.getDate())
+            .ARMarkerId(diaryEntity.getARMarkerId())
+            .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
+            .privacyOption(diaryEntity.getPrivacyOption())
+            .content(diaryEntity.getContent())
+            .writer(userRepository.getNickname(diaryEntity.getWriter()))
             .build();
-    return diaryListDto;
+    return diaryDto;
 }
 
-    public DiaryListDto findByMarker(int id){
-        ArrayList<DiaryEntity> diaryEntities = diaryRepository.selectByARMarkerId(id);
-        DiaryListDto diaryListDto = DiaryListDto.builder()
-                .diaryList(diaryEntities)
+    public DiaryDto findByMarker(int id){
+        DiaryEntity diaryEntity = diaryRepository.selectByARMarkerId(id);
+        DiaryDto diaryDto = DiaryDto.builder()
+                .diaryId(diaryEntity.getDiaryId()).date(diaryEntity.getDate())
+                .ARMarkerId(diaryEntity.getARMarkerId())
+                .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
+                .privacyOption(diaryEntity.getPrivacyOption())
+                .content(diaryEntity.getContent())
+                .writer(userRepository.getNickname(diaryEntity.getWriter()))
                 .build();
-        return diaryListDto;
+        return diaryDto;
     }
 
 //위 함수 오버로딩(찜한 일기목록을 불러올때 사용)
-    public DiaryListDto findById(List<Integer> id){
-        DiaryListDto diaryListDto = DiaryListDto.builder()
-                //.diaryList(diaryEntities)
-                .build();
-        return diaryListDto;
+    public List<DiaryDto> findById(List<Integer> idList){
+        List<DiaryDto> diaryList= new ArrayList<>();
+        for(int id:idList){
+            DiaryEntity diaryEntity=diaryRepository.selectById(id);
+            DiaryDto diaryDto = DiaryDto.builder()
+                    .diaryId(diaryEntity.getDiaryId()).date(diaryEntity.getDate())
+                    .ARMarkerId(diaryEntity.getARMarkerId())
+                    .audio(diaryEntity.getAudio()).image(diaryEntity.getImage()).video(diaryEntity.getVideo())
+                    .privacyOption(diaryEntity.getPrivacyOption())
+                    .content(diaryEntity.getContent())
+                    .writer(userRepository.getNickname(diaryEntity.getWriter()))
+                    .build();
+            diaryList.add(diaryDto);
+        }
+        return diaryList;
     }
 
     public int createDiary(DiaryRequestDto diaryRequestDto, int writer){

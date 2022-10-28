@@ -34,7 +34,6 @@ public class SignService {
                 .refreshToken(refreshToken)
                 .build();
         return loginResponseDto;
-
     }
 
     public LoginResponseDto login(String email) {
