@@ -30,7 +30,7 @@ public class MarkerController {
 
     //filteriing이라고 생각해서 쿼리 사용
     @GetMapping("/location")
-    public ResponseEntity<?> loadCMarkersByLocation(@RequestParam double lat, @RequestParam double lon){
+    public ResponseEntity<?> loadMarkersByLocation(@RequestParam double lat, @RequestParam double lon){
         int defaultDistance=10;
         ARMarkerListDto ARMarkerListDto = markerService.findMarkerListByLocation(lat, lon,defaultDistance);
         return ResponseEntity.status(HttpStatus.OK).body(ARMarkerListDto);
