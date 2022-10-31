@@ -37,7 +37,7 @@ public class DiaryController {
 
     //이거 유저로 빠질 예정
     @GetMapping("api/user/diary")
-    public ResponseEntity<?> loadDiaryByUser(@RequestHeader(value = "Authorization") String headerToken){
+    public ResponseEntity<?> loadDiariesByUser(@RequestHeader(value = "Authorization") String headerToken){
         String token = headerToken.substring("Bearer ".length());
         //토큰 유효성 확인
         if(!tokenService.validateToken(token)){
