@@ -17,6 +17,12 @@
           FROM guestbook
          WHERE guestbook_id = #{guestBookId}
     </select>
+    <select id="selectByMarker"
+            resultType="GuestBookEntity">
+        SELECT guestbook_id, writer, date, content, like_num, ARmarker_id
+        FROM guestbook
+        WHERE ARmarker_id = #{markerId}
+    </select>
 
     <update id="update"
             parameterType="GuestBookEntity"

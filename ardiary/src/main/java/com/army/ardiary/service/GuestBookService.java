@@ -31,7 +31,9 @@ public class GuestBookService {
     public GuestBookEntity findGuestBook(int guestBookId){
         return guestBookRepository.selectById(guestBookId);
     }
-
+    public GuestBookEntity findByMarker(int markerId){
+        return guestBookRepository.selectByMarker(markerId);
+    }
     public ArrayList<GuestBookEntity> findGuestBookListByUser(int userId){
         return guestBookRepository.selectByUser(userId);
     }

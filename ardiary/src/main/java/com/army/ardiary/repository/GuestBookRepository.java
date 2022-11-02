@@ -12,6 +12,7 @@ public interface GuestBookRepository {
     int insert (GuestBookEntity guestBookEntity);
 
     GuestBookEntity selectById(int guestBookId);
+    GuestBookEntity selectByMarker(int markerId);
 
     int update(GuestBookEntity guestBookEntity);
 
