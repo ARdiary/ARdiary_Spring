@@ -66,4 +66,10 @@ public class GuestBookController {
         GuestBookEntity deleted = guestBookService.delete(guestBookId);
         return ResponseEntity.status(HttpStatus.OK).body(deleted);
     }
+
+    @GetMapping("/api/guestbooks/marker")
+    public ResponseEntity<?> loadDiaryByMarker(@RequestParam("id") int markerId){
+        GuestBookEntity guestBookEntity = guestBookService.findByMarker(markerId);
+        return ResponseEntity.status(HttpStatus.OK).body(guestBookEntity);
+    }
 }
