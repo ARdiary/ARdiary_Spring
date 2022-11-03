@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.ARMarkerRepository">
+    <insert id="insert"
+            parameterType="ARMarkerEntity"
+            useGeneratedKeys="true"
+            keyProperty="ARMarkerId"
+            keyColumn="ARmarker_id">
+        INSERT INTO ARmarker (specifyingImg, latitude, longitude,marker_image_id, content_type)
+        VALUES (#{specifyImg}, #{latitude}, #{longitude}, #{markerImageId}, #{contentType});
+    </insert>
+
+    <select id="selectById"
+            resultType="ARMarkerEntity">
+        SELECT *
+          FROM ARmarker
+         WHERE ARmarker_id = #{ARMarkerId};
+    </select>
+
+    <select id="selectAll"
+            resultType="ARMarkerEntity">
+        SELECT *
+        FROM ARmarker;
+    </select>
+    <select id="selectByLatLon"
+            resultType="ARMarkerEntity">
+        SELECT *,(((acos(sin((#{latitude}*pi()/180)) * sin((latitude*pi()/180))+cos((#{latitude}*pi()/180))*cos((latitude*pi()/180))*cos(((#{longitude}-longitude)*pi()/180))))*180/pi())*60*1.1515*1.609344) as distance
+        FROM ARmarker
+        WHERE distance &lt; #{distance};
+    </select>
+
+    <update id="update"
+            parameterType="ARMarkerEntity"
+            useGeneratedKeys="true"
+            keyProperty="ARMarkerId"
+            keyColumn="ARmarker_id">
+        UPDATE ARmarker
+           SET specifyingImg=#{specifyImg},
+               latitude=#{latitude},
+               longitude=#{longitude},
+               marker_image_id=#{markerImageId},
+               content_type=#{contentType}
+         WHERE ARmarker_id = #{ARMarkerId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM ARMarker
+         WHERE ARmarker_id = #{ARMarkerId};
+    </delete>
+</mapper>

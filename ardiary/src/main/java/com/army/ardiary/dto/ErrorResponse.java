@@ -1,5 +1,4 @@
 package com.army.ardiary.dto;
-
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

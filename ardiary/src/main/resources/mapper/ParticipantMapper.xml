@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.ParticipantRepository">
+    <insert id="insert"
+            parameterType="ParticipantEntity"
+            useGeneratedKeys="true"
+            keyProperty="participantId"
+            keyColumn="participant_id">
+        INSERT INTO participant (timecapsule_id, user_id)
+        VALUES (#{timeCapsuleId}, #{userId});
+    </insert>
+
+    <select id="selectById"
+            resultType="ParticipantEntity">
+        SELECT participant_id, timecapsule_id, user_id
+          FROM participant
+         WHERE participant_id = #{participantId}
+    </select>
+
+    <update id="update"
+            parameterType="ParticipantEntity"
+            useGeneratedKeys="true"
+            keyProperty="participantId"
+            keyColumn="participant_id">
+        UPDATE participant
+           SET timecapsule_id = #{timeCapsuleId},
+               user_id = #{userId}
+         WHERE participant_id = #{participantId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM participant
+         WHERE participant_id = #{participantId}
+    </delete>
+
+    <select id="selectByTimeCapsuleId"
+            resultType="ParticipantEntity">
+        SELECT participant_id, timecapsule_id, user_id
+          FROM participant
+         WHERE timecapsule_id = #{timeCapsuleId}
+    </select>
+</mapper>

@@ -2,6 +2,7 @@ package com.army.ardiary.service;
 
 import com.army.ardiary.domain.entity.UserEntity;
 import com.army.ardiary.dto.LoginResponseDto;
+import com.army.ardiary.exceptions.ConflictException;
 import com.army.ardiary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,10 @@ public class SignService {
     private final UserRepository userRepository;
     private final TokenService tokenService;
 
-    public LoginResponseDto signUp(String email) {
-
+    public LoginResponseDto signUp(String email){
+        if(userRepository.selectByEmail(email)!=null){
+            throw new ConflictException();
+        }
         UserEntity userEntity = UserEntity.builder()
                 .email(email)
                 .nickname(email)

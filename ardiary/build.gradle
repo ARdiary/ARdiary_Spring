@@ -23,6 +23,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	//spring-web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	//lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -39,6 +41,8 @@ dependencies {
 	// JAX-B dependencies for JDK 9+
 	implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
 	implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
+	// aws cloud framework for aws s3 (aws sdk의 s3관련된 라이브러리만 추가하는 코드도 있는데 혹시 몰라서 포괄적으로 설정함)
+	implementation "org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE"
 }
 
 tasks.named('test') {

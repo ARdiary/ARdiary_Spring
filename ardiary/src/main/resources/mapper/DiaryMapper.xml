@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.DiaryRepository">
+    <insert id="insert"
+            parameterType="DiaryEntity"
+            useGeneratedKeys="true"
+            keyProperty="diaryId"
+            keyColumn="diary_id">
+        INSERT INTO diary (writer, date,title,content,image,video,audio,ARmarker_id,privacy_option)
+        VALUES (#{writer},curdate(),#{title},#{content},#{image},#{video},#{audio},#{ARMarkerId},#{privacyOption});
+    </insert>
+
+    <select id="selectById"
+            parameterType="int"
+            resultType="DiaryEntity">
+        SELECT * FROM diary WHERE diary_id=#{diaryId};
+    </select>
+
+    <select id="selectByWriter"
+            parameterType="int"
+            resultType="DiaryEntity">
+        SELECT * FROM diary WHERE writer=#{writer};
+    </select>
+
+    <select id="selectAll"
+            resultType="DiaryEntity">
+        SELECT * FROM diary;
+    </select>
+
+    <select id="selectByARMarkerId"
+            parameterType="int"
+            resultType="DiaryEntity">
+        SELECT * FROM diary WHERE ARmarker_id=#{ARMarkerId};
+    </select>
+
+    <update id="update"
+            parameterType="DiaryEntity"
+            useGeneratedKeys="true"
+            keyProperty="diaryId"
+            keyColumn="diary_id">
+        UPDATE diary
+           SET title=#{title}, content=#{content}, image=#{image}, video=#{video}, audio=#{audio}, ARmarker_id=#{ARMarkerId}, privacy_option=#{privacyOption}
+         WHERE diary_id=#{diaryId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM diary
+         WHERE diary_id=#{diaryId};
+    </delete>
+</mapper>
