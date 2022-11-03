@@ -5,6 +5,7 @@ import com.army.ardiary.dto.GuestBookContentDto;
 import com.army.ardiary.repository.GuestBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.error.Mark;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class GuestBookService {
 
     private final GuestBookRepository guestBookRepository;
+    private final MarkerService markerService;
 
     public GuestBookEntity createGuestBook(int userId, GuestBookContentDto content){
 
@@ -47,6 +49,7 @@ public class GuestBookService {
     public GuestBookEntity delete(int id){
         GuestBookEntity guestBookEntity = guestBookRepository.selectById(id);
         guestBookRepository.delete(id);
+        markerService.delete(guestBookEntity.getARMarkerId());
         return guestBookEntity;
     }
 
