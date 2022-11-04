@@ -3,6 +3,7 @@ package com.army.ardiary.controller;
 import com.army.ardiary.domain.entity.GuestBookEntity;
 import com.army.ardiary.dto.ErrorResponse;
 import com.army.ardiary.dto.GuestBookContentDto;
+import com.army.ardiary.dto.GuestBookDto;
 import com.army.ardiary.service.GuestBookService;
 import com.army.ardiary.service.TokenService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,14 +29,14 @@ public class GuestBookController {
 
         int userId = tokenService.findUserIdByJwt(token);
 
-        GuestBookEntity newGuestBook = guestBookService.createGuestBook(userId, content);
+        GuestBookDto newGuestBook = guestBookService.createGuestBook(userId, content);
         return ResponseEntity.status(HttpStatus.CREATED).body(newGuestBook);
     }
 
     @GetMapping("/api/guestbooks/{id}")
     public ResponseEntity<?> loadGuestBook(@PathVariable("id") int id){
-        GuestBookEntity guestBookEntity = guestBookService.findGuestBook(id);
-        return ResponseEntity.status(HttpStatus.OK).body(guestBookEntity);
+        GuestBookDto guestBookDto = guestBookService.findGuestBook(id);
+        return ResponseEntity.status(HttpStatus.OK).body(guestBookDto);
     }
 
     @GetMapping("/api/guestbooks")
@@ -43,8 +45,8 @@ public class GuestBookController {
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
-        ArrayList<GuestBookEntity> guestBookEntities = guestBookService.findGuestBookListByUser(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(guestBookEntities);
+        List<GuestBookDto> guestBookDtoList = guestBookService.findGuestBookListByUser(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(guestBookDtoList);
     }
 
     @PatchMapping("/api/guestbooks/{id}/content")
@@ -53,8 +55,8 @@ public class GuestBookController {
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token)||!guestBookService.isUser(userId, guestBookId))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
-        GuestBookEntity guestBookEntity = guestBookService.updateContent(guestBookId, newContent.getContent());
-        return ResponseEntity.status(HttpStatus.OK).body(guestBookEntity);
+        GuestBookDto guestBookDto = guestBookService.updateContent(guestBookId, newContent.getContent());
+        return ResponseEntity.status(HttpStatus.OK).body(guestBookDto);
     }
 
     @DeleteMapping("/api/guestbooks/{id}")
@@ -63,13 +65,13 @@ public class GuestBookController {
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token)||!guestBookService.isUser(userId, guestBookId))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
-        GuestBookEntity deleted = guestBookService.delete(guestBookId);
+        GuestBookDto deleted = guestBookService.delete(guestBookId);
         return ResponseEntity.status(HttpStatus.OK).body(deleted);
     }
 
     @GetMapping("/api/guestbooks/marker")
     public ResponseEntity<?> loadDiaryByMarker(@RequestParam("id") int markerId){
-        GuestBookEntity guestBookEntity = guestBookService.findByMarker(markerId);
-        return ResponseEntity.status(HttpStatus.OK).body(guestBookEntity);
+        GuestBookDto guestBookDto = guestBookService.findByMarker(markerId);
+        return ResponseEntity.status(HttpStatus.OK).body(guestBookDto);
     }
 }
