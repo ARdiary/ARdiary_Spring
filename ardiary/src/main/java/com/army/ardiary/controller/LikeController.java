@@ -34,6 +34,7 @@ public class LikeController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
 
         likeService.deleteLikeDiary(userId, diaryId);
+        return ResponseEntity.status(HttpStatus.OK).body("일기 좋아요 삭제");
     }
 
 }
