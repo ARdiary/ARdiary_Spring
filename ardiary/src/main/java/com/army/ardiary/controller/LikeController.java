@@ -19,7 +19,7 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/api/likes/diaries")
-    public ResponseEntity<?> addLike(@RequestHeader(value = "Authorization")String headerToken, @RequestBody int id){
+    public ResponseEntity<?> addLikeDiary(@RequestHeader(value = "Authorization")String headerToken, @RequestBody int id){
         String token = headerToken.substring("Bearer ".length());
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null|| !tokenService.validateToken(token))
