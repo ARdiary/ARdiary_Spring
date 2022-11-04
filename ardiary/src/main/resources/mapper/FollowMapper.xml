@@ -35,4 +35,18 @@
           FROM follow
          WHERE follow_id = #{followId}
     </delete>
+
+    <select id="selectByFollower"
+            resultType="FollowEntity">
+        SELECT follow_id, follower, followee
+          FROM follow
+         WHERE follower = #{follower}
+    </select>
+
+    <select id="selectByFollowee"
+            resultType="FollowEntity">
+        SELECT follow_id, follower, followee
+          FROM follow
+         WHERE followee = #{followee}
+    </select>
 </mapper>
