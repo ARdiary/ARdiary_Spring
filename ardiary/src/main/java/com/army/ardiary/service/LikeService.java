@@ -46,4 +46,9 @@ public class LikeService {
         int orig = guestBookEntity.getLikeNum();
         guestBookEntity.setLikeNum(orig+1);
     }
+
+    public void deleteLikeGuestBook(int likeGuestBookId){
+        likeGuestBookRepository.delete(likeGuestBookId);
+    }
+
 }
