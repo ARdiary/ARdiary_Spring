@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.LikeGuestBookRepository">
+    <insert id="insert"
+            parameterType="LikeGuestBookEntity"
+            useGeneratedKeys="true"
+            keyProperty="likeGuestBookId"
+            keyColumn="like_guestbook_id">
+        INSERT INTO like_guestbook (user_id, guestbook_id)
+        VALUES (#{userId}, #{guestBookId});
+    </insert>
+
+    <select id="select"
+            resultType="LikeGuestBookEntity">
+        SELECT like_guestbook_id, user_id, guestbook_id
+          FROM like_guestbook
+         WHERE like_guestbook_id = #{likeGuestBookId}
+    </select>
+
+    <update id="update"
+            parameterType="LikeGuestBookEntity"
+            useGeneratedKeys="true"
+            keyProperty="likeGuestBookId"
+            keyColumn="like_guestbook_id">
+        UPDATE like_guestbook
+           SET user_id = #{userId},
+               guestbook_id = #{guestBookId}
+        WHERE like_guestbook_id = #{likeGuestBookId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM like_guestbook
+         WHERE like_guestbook_id = #{likeGuestBookId}
+    </delete>
+
+    <select id="selectByUser"
+            resultType="LikeGuestBookEntity">
+        SELECT like_guestbook_id, user_id, guestbook_id
+          FROM like_guestbook
+         WHERE like_guestbook_id = #{likeGuestBookId}
+    </select>
+</mapper>
