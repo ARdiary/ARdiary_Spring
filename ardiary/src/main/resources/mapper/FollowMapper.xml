@@ -14,8 +14,8 @@
     <select id="selectById"
             resultType="FollowEntity">
         SELECT follow_id, follower, followee
-        FROM follow
-        WHERE follow_id = #{followId}
+          FROM follow
+         WHERE follow_id = #{followId}
     </select>
 
     <update id="update"
@@ -24,27 +24,15 @@
             keyProperty="followId"
             keyColumn="follow_id">
         UPDATE follow
-        SET follower = #{follower},
-        followee = #{followee},
-        WHERE follow_id = #{followId};
+           SET follower = #{follower},
+               followee = #{followee}
+         WHERE follow_id = #{followId};
     </update>
 
     <delete id="delete"
             parameterType="int">
         DELETE
-        FROM follow
-        WHERE follow_id = #{followId}
+          FROM follow
+         WHERE follow_id = #{followId}
     </delete>
-
-    <select id="selectByFollower" resultType="FollowEntity">
-        SELECT follow_id, follower, followee
-        FROM follow
-        WHERE follower = #{follower}
-    </select>
-
-    <select id="selectByFollowee" resultType="FollowEntity">
-        SELECT follow_id, follower, followee
-        FROM follow
-        WHERE followee = #{followee}
-    </select>
 </mapper>

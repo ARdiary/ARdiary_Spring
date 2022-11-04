@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.TimeCapsuleRepository">
+    <insert id="insert"
+            parameterType="TimeCapsuleEntity"
+            useGeneratedKeys="true"
+            keyProperty="timeCapsuleId"
+            keyColumn="timecapsule_id">
+        INSERT INTO timecapsule (writer, date, title, content, due_date, image, video, audio, cameraAR_id)
+        VALUES (#{writer}, curdate(), #{title}, #{content}, #{dueDate}, #{image}, #{video}, #{audio}, #{cameraARId});
+    </insert>
+
+    <select id="selectById"
+            resultType="TimeCapsuleEntity">
+        SELECT timecapsule_id, writer, date, title, content, due_date, image, video, audio, cameraAR_id
+          FROM timecapsule
+         WHERE timecapsule_id = #{timeCapsuleId}
+    </select>
+
+    <update id="update"
+            parameterType="TimeCapsuleEntity"
+            useGeneratedKeys="true"
+            keyProperty="timeCapsuleId"
+            keyColumn="timecapsule_id">
+        UPDATE timecapsule
+           SET writer = #{writer},
+               date = curdate(),
+               title = #{title},
+               content = #{content},
+               due_date = #{dueDate},
+               image = #{image},
+               video = #{video},
+               audio = #{audio},
+               cameraAR_id = #{cameraARId}
+         WHERE timecapsule_id = #{timeCapsuleId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM timecapsule
+         WHERE timecapsule_id = #{timeCapsuleId}
+    </delete>
+</mapper>
