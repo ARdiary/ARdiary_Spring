@@ -10,7 +10,7 @@ public interface LikeDiaryRepository {
     int insert(LikeDiaryEntity likeDiaryEntity);
     LikeDiaryEntity select(int likeDiaryId);
     int update(LikeDiaryEntity likeDiaryEntity);
-    int delete(int likeDiaryId);
+    int delete(int userId, int diaryId);
 
     List<LikeDiaryEntity> selectByUser(int userId);
 }

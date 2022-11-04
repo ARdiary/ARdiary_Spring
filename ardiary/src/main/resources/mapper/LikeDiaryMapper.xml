@@ -40,6 +40,7 @@
             resultType="LikeDiaryEntity">
         SELECT like_diary_id, user_id, diary_id
           FROM like_diary
-         WHERE like_diary_id = #{likeDiaryId}
+         WHERE user_id = #{userId},
+               diary_id = #{diaryId}
     </select>
 </mapper>
