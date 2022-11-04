@@ -19,4 +19,8 @@ public class FollowService {
 
         followRepository.insert(followEntity);
     }
+
+    public void deleteFollow(int followId) {
+        followRepository.delete(followId);
+    }
 }
