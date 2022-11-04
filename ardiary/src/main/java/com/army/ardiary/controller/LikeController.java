@@ -27,14 +27,14 @@ public class LikeController {
         return ResponseEntity.status(HttpStatus.CREATED).body("일기 좋아요 추가");
     }
 
-    @DeleteMapping("/api/likes/diaries/{diaryId}")
-    public ResponseEntity<?> deleteLikeDiary(@RequestHeader(value = "Authorization")String headerToken, @PathVariable int diaryId){
+    @DeleteMapping("/api/likes/diaries/{id}")
+    public ResponseEntity<?> deleteLikeDiary(@RequestHeader(value = "Authorization")String headerToken, @PathVariable int id){
         String token = headerToken.substring("Bearer ".length());
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
 
-        likeService.deleteLikeDiary(userId, diaryId);
+        likeService.deleteLikeDiary(id);
         return ResponseEntity.status(HttpStatus.OK).body("일기 좋아요 삭제");
     }
 

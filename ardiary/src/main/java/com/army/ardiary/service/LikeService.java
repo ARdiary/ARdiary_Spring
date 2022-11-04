@@ -28,8 +28,8 @@ public class LikeService {
         //해당 다이어리의 좋아요 수 +1
     }
 
-    public void deleteLikeDiary(int userId, int diaryId){
-        likeDiaryRepository.delete(userId, diaryId);
+    public void deleteLikeDiary(int likeGuestBookId){
+        likeDiaryRepository.delete(likeGuestBookId);
         //해당 다이어리 좋아요 수 -1
     }
 
