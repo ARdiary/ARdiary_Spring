@@ -3,6 +3,7 @@ package com.army.ardiary.controller;
 import com.army.ardiary.dto.DiaryDto;
 import com.army.ardiary.dto.ErrorResponse;
 import com.army.ardiary.dto.FollowDto;
+import com.army.ardiary.dto.GuestBookDto;
 import com.army.ardiary.service.TokenService;
 import com.army.ardiary.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +53,16 @@ public class UserController {
 
         List<DiaryDto> diaryDtos = userService.findLikeDiaryList(userId);
         return ResponseEntity.status(HttpStatus.OK).body(diaryDtos);
+    }
+
+    @GetMapping("/api/likes/guestbooks")
+    public ResponseEntity<?> loadLikeGuestBookList(@RequestHeader(value = "Authorization") String headerToken){
+        String token = headerToken.substring("Bearer ".length());
+        int userId = tokenService.findUserIdByJwt(token);
+        if(token == null || !tokenService.validateToken(token))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
+
+        List<GuestBookDto> guestBookDtos = userService.findLikeGuestBookList(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(guestBookDtos);
     }
 }

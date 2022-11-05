@@ -1,15 +1,10 @@
 package com.army.ardiary.service;
 
-import com.army.ardiary.domain.entity.DiaryEntity;
-import com.army.ardiary.domain.entity.FollowEntity;
-import com.army.ardiary.domain.entity.LikeDiaryEntity;
-import com.army.ardiary.domain.entity.UserEntity;
+import com.army.ardiary.domain.entity.*;
 import com.army.ardiary.dto.DiaryDto;
 import com.army.ardiary.dto.FollowDto;
-import com.army.ardiary.repository.DiaryRepository;
-import com.army.ardiary.repository.FollowRepository;
-import com.army.ardiary.repository.LikeDiaryRepository;
-import com.army.ardiary.repository.UserRepository;
+import com.army.ardiary.dto.GuestBookDto;
+import com.army.ardiary.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +18,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
     private final LikeDiaryRepository likeDiaryRepository;
+    private final LikeGuestBookRepository likeGuestBookRepository;
     private final DiaryRepository diaryRepository;
+    private final GuestBookRepository guestBookRepository;
     public List<FollowDto> findFollowingList(int userId){
 
         List<FollowEntity> follows = followRepository.selectByFollower(userId);
@@ -91,5 +88,26 @@ public class UserService {
             diaries.add(diary);
         }
         return diaries;
+    }
+
+    public List<GuestBookDto> findLikeGuestBookList(int userId){
+        List<LikeGuestBookEntity> likeGuestBookEntities = likeGuestBookRepository.selectByUser(userId);
+        List<GuestBookDto> guestbooks = new ArrayList<>();
+        for(LikeGuestBookEntity likeGuestBookEntity: likeGuestBookEntities){
+            int guestBookId = likeGuestBookEntity.getGuestBookId();
+            GuestBookEntity guestBookEntity = guestBookRepository.selectById(guestBookId);
+            int writerId = guestBookEntity.getWriter();
+            UserEntity writerEntity = userRepository.selectById(writerId);
+            GuestBookDto guestbook = GuestBookDto.builder()
+                    .guestBookId(guestBookId)
+                    .writer(writerEntity.getNickname())
+                    .date(guestBookEntity.getDate())
+                    .content(guestBookEntity.getContent())
+                    .likeNum(guestBookEntity.getLikeNum())
+                    .ARMarkerId(guestBookEntity.getARMarkerId())
+                    .build();
+            guestbooks.add(guestbook);
+        }
+        return guestbooks;
     }
 }
