@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.army.ardiary.repository.LikeDiaryRepository">
+    <insert id="insert"
+            parameterType="LikeDiaryEntity"
+            useGeneratedKeys="true"
+            keyProperty="likeDiaryId"
+            keyColumn="like_diary_id">
+        INSERT INTO like_diary (user_id, diary_id)
+        VALUES (#{userId}, #{diaryId});
+    </insert>
+
+    <select id="select"
+            resultType="LikeDiaryEntity">
+        SELECT like_diary_id, user_id, diary_id
+          FROM like_diary
+         WHERE like_diary_id = #{likeDiaryId}
+    </select>
+
+    <update id="update"
+            parameterType="LikeDiaryEntity"
+            useGeneratedKeys="true"
+            keyProperty="likeDiaryId"
+            keyColumn="like_diary_id">
+        UPDATE like_diary
+           SET user_id = #{userId},
+               diary_id = #{diaryId}
+        WHERE like_diary_id = #{likeDiaryId};
+    </update>
+
+    <delete id="delete"
+            parameterType="int">
+        DELETE
+          FROM like_diary
+         WHERE like_diary_id = #{likeDiaryId}
+    </delete>
+</mapper>

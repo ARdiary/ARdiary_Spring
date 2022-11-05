@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Repository
 @Mapper
 public interface ParticipantRepository {
@@ -17,5 +19,5 @@ public interface ParticipantRepository {
 
     int delete(int id);
 
-    ArrayList<ParticipantEntity> selectByTimeCapsuleId(int timeCapsuleId);
+    List<ParticipantEntity> selectByTimeCapsuleId(int timeCapsuleId);
 }
