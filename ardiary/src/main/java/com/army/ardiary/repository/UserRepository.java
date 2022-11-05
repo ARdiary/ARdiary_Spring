@@ -12,4 +12,5 @@ public interface UserRepository {
     int update(UserEntity userEntity);
     int delete(int userId);
     UserEntity selectByEmail(String email);
+    UserEntity selectByNickname(String nickname);
 }
