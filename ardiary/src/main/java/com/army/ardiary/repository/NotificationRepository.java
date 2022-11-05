@@ -12,6 +12,6 @@ import java.util.ArrayList;
 public interface NotificationRepository {
     int insert(NotificationEntity notificationEntity);
     NotificationEntity selectById(int notificationId);
-    NotificationEntity selectByUser (int userId);
+    ArrayList<NotificationEntity> selectByUser (int userId);
     int delete(int notificationId);
 }

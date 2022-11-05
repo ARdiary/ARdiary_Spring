@@ -48,4 +48,12 @@
           FROM user
          WHERE email = #{email}
     </select>
+
+    <select id="selectByNickname"
+            resultType="UserEntity">
+        SELECT user_id, email, profile_image, nickname,
+               following_num, follower_num, join_date, withdrawal_date
+          FROM user
+         WHERE nickname = #{nickname}
+    </select>
 </mapper>
