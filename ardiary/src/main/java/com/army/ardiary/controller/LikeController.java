@@ -18,12 +18,9 @@ public class LikeController {
 
     @PostMapping("/api/likes/diaries")
     public ResponseEntity<?> addLikeDiary(@RequestHeader(value = "Authorization")String headerToken, @RequestBody int id){
-        String token;
-        String prefix = headerToken.substring(0, "Bearer ".length());
-        if(prefix == "Bearer "){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());
-        }else{
-            token = headerToken;
         }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null|| !tokenService.validateToken(token))
@@ -35,12 +32,9 @@ public class LikeController {
 
     @DeleteMapping("/api/likes/diaries/{id}")
     public ResponseEntity<?> deleteLikeDiary(@RequestHeader(value = "Authorization")String headerToken, @PathVariable int id){
-        String token;
-        String prefix = headerToken.substring(0, "Bearer ".length());
-        if(prefix == "Bearer "){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());
-        }else{
-            token = headerToken;
         }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null|| !tokenService.validateToken(token))
@@ -52,12 +46,9 @@ public class LikeController {
 
     @PostMapping("/api/likes/guestbooks")
     public ResponseEntity<?> addLikeGuestBook(@RequestHeader(value = "Authorization")String headerToken, @RequestBody int id){
-        String token;
-        String prefix = headerToken.substring(0, "Bearer ".length());
-        if(prefix == "Bearer "){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());
-        }else{
-            token = headerToken;
         }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null|| !tokenService.validateToken(token))
@@ -69,12 +60,9 @@ public class LikeController {
 
     @DeleteMapping("/api/likes/guestbooks/{id}")
     public ResponseEntity<?> deleteLikeGuestBook(@RequestHeader(value = "Authorization") String headerToken, @PathVariable int id){
-        String token;
-        String prefix = headerToken.substring(0, "Bearer ".length());
-        if(prefix == "Bearer "){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());
-        }else{
-            token = headerToken;
         }
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));

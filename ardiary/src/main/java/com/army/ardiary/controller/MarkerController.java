@@ -38,12 +38,9 @@ public class MarkerController {
 
     @PostMapping("")
     public ResponseEntity<?> writeARMarker(@RequestHeader(value = "Authorization") String headerToken, ARMarkerRequestDto arMarkerRequestDto){
-        String token;
-        String prefix = headerToken.substring(0, "Bearer ".length());
-        if(prefix == "Bearer "){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());
-        }else{
-            token = headerToken;
         }
         //토큰 유효성 확인
         if(token==null){ //토큰을 보내지않은 경우
