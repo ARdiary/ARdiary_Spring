@@ -18,7 +18,10 @@ public class FollowController {
 
     @PostMapping("/api/follow")
     public ResponseEntity<?> addFollow(@RequestHeader(value = "Authorization") String headerToken, @RequestBody FollowRequestDto followRequestDto){
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
@@ -30,7 +33,10 @@ public class FollowController {
 
     @DeleteMapping("/api/follow/{id}")
     public ResponseEntity<?> deleteFollow(@RequestHeader(value = "Authorization") String headerToken, @PathVariable int id){
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
 

@@ -23,7 +23,13 @@ public class GuestBookController {
 
     @PostMapping("/api/guestbooks")
     public ResponseEntity<?> writeGuestBook(@RequestHeader(value = "Authorization", required = false) String headerToken, @RequestBody GuestBookContentDto content){
-        String token = headerToken.substring("Bearer ".length());
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 작성 권한이 없습니다."));
 
@@ -41,7 +47,10 @@ public class GuestBookController {
 
     @GetMapping("/api/guestbooks")
     public ResponseEntity<?> loadGuestBookListByUser(@RequestHeader(value = "Authorization") String headerToken) {
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
@@ -51,7 +60,10 @@ public class GuestBookController {
 
     @PatchMapping("/api/guestbooks/{id}/content")
     public ResponseEntity<?> modifyContent(@RequestHeader(value = "Authorization") String headerToken, @PathVariable("id") int guestBookId, @RequestBody GuestBookContentDto newContent){
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token)||!guestBookService.isUser(userId, guestBookId))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
@@ -61,7 +73,10 @@ public class GuestBookController {
 
     @DeleteMapping("/api/guestbooks/{id}")
     public ResponseEntity<?> delete(@RequestHeader(value = "Authorization") String headerToken, @PathVariable("id") int guestBookId) {
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if (token == null || !tokenService.validateToken(token)||!guestBookService.isUser(userId, guestBookId))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
