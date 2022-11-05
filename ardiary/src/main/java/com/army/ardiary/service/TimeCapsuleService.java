@@ -109,7 +109,6 @@ public class TimeCapsuleService {
     }
 
     public void delete(int timeCapsuleId){
-        TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);
         List<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleId);
 
         timeCapsuleRepository.delete(timeCapsuleId);
