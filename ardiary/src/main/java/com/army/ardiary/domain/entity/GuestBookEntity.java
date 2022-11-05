@@ -3,7 +3,8 @@ package com.army.ardiary.domain.entity;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.Date;
+
 @Builder
 @Data
 public class GuestBookEntity {
@@ -12,7 +13,7 @@ public class GuestBookEntity {
 
     private int writer;
 
-    private LocalDate date;
+    private Date date;
 
     private String content;
 
