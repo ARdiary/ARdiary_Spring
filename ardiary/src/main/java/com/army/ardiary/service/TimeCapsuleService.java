@@ -11,6 +11,7 @@ import com.army.ardiary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class TimeCapsuleService {
     private final UserRepository userRepository;
     private final ParticipantRepository participantRepository;
     private final FileService fileService;
+    private final MarkerService markerService;
 
     public int createTimeCapsule(int userId, TimeCapsuleRequestDto timeCapsuleRequestDto){
 
@@ -94,8 +96,9 @@ public class TimeCapsuleService {
     }
 
     public void delete(int timeCapsuleId){
+        TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);
         List<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleId);
-
+        markerService.delete(timeCapsuleEntity.getARMarkerId());
         timeCapsuleRepository.delete(timeCapsuleId);
         for(ParticipantEntity participantEntity: participantEntities){
             int id = participantEntity.getParticipantId();
