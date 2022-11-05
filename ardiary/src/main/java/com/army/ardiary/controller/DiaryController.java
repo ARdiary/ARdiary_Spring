@@ -38,7 +38,13 @@ public class DiaryController {
     //이거 유저로 빠질 예정
     @GetMapping("api/user/diary")
     public ResponseEntity<?> loadDiaryByUser(@RequestHeader(value = "Authorization") String headerToken){
-        String token = headerToken.substring("Bearer ".length());
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         //토큰 유효성 확인
         if(!tokenService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
@@ -58,7 +64,13 @@ public class DiaryController {
 
     @PostMapping("")
     public ResponseEntity<?> writeDiary(@RequestHeader(value = "Authorization") String headerToken, DiaryRequestDto diaryRequestDto){
-        String token = headerToken.substring("Bearer ".length());
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         //토큰 유효성 확인
         if(token==null){ //토큰을 보내지않은 경우
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("잘못된 요청입니다. 토큰도 함께 보내주세요."));
@@ -77,7 +89,13 @@ public class DiaryController {
     //@RequestMapping(value = "/diary/delete/{id}",method = {RequestMethod.GET,RequestMethod.POST})
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDiary(@PathVariable(value = "id") int diaryId, @RequestHeader(value = "Authorization") String headerToken){
-        String token = headerToken.substring("Bearer ".length());
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         //토큰 유효성 확인
         if(token==null||!tokenService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
@@ -93,7 +111,13 @@ public class DiaryController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> modifyDiary(@PathVariable(value = "id") int diaryId,@RequestHeader(value = "Authorization") String headerToken, @RequestBody @Valid DiaryRequestDto diaryRequestDto){
-        String token = headerToken.substring("Bearer ".length());
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         //토큰 유효성 확인
         if(!tokenService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));

@@ -18,7 +18,13 @@ public class LikeController {
 
     @PostMapping("/api/likes/diaries")
     public ResponseEntity<?> addLikeDiary(@RequestHeader(value = "Authorization")String headerToken, @RequestBody int id){
-        String token = headerToken.substring("Bearer ".length());
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
@@ -29,7 +35,13 @@ public class LikeController {
 
     @DeleteMapping("/api/likes/diaries/{id}")
     public ResponseEntity<?> deleteLikeDiary(@RequestHeader(value = "Authorization")String headerToken, @PathVariable int id){
-        String token = headerToken.substring("Bearer ".length());
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
@@ -40,7 +52,13 @@ public class LikeController {
 
     @PostMapping("/api/likes/guestbooks")
     public ResponseEntity<?> addLikeGuestBook(@RequestHeader(value = "Authorization")String headerToken, @RequestBody int id){
-        String token = headerToken.substring("Bearer ".length());
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
@@ -51,8 +69,13 @@ public class LikeController {
 
     @DeleteMapping("/api/likes/guestbooks/{id}")
     public ResponseEntity<?> deleteLikeGuestBook(@RequestHeader(value = "Authorization") String headerToken, @PathVariable int id){
-        String token = headerToken.substring("Bearer ".length());
-        int userId = tokenService.findUserIdByJwt(token);
+        String token;
+        String prefix = headerToken.substring(0, "Bearer ".length());
+        if(prefix == "Bearer "){
+            token = headerToken.substring("Bearer ".length());
+        }else{
+            token = headerToken;
+        }
         if(token == null|| !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
 
