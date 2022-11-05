@@ -12,4 +12,5 @@ private double latitude;
 private double longitude;
 private int markerImageId;
 private String contentType;
+private String address;
 }
