@@ -9,9 +9,8 @@ public class TimeCapsuleRequestDto {
     String writer;
     String title;
     String content;
-    String date;
     String dueDate;
-    ArrayList<String> participants; //참가자 닉네임 리스트
+    ArrayList<String> participants;
     MultipartFile[] image;
     MultipartFile[] video;
     MultipartFile[] audio;
