@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+
 @RestController
 @RequiredArgsConstructor
 public class TimeCapsuleController {
@@ -22,8 +24,12 @@ public class TimeCapsuleController {
         if (token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 작성 권한이 없습니다."));
         int userId = tokenService.findUserIdByJwt(token);
-        TimeCapsuleResponseDto timeCapsuleResponseDto = timeCapsuleService.createTimeCapsule(userId, timeCapsuleRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(timeCapsuleResponseDto);
+        try{
+        int newId = timeCapsuleService.createTimeCapsule(userId, timeCapsuleRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newId);
+        }catch (ParseException e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("문자열 변환 과정 오류"));
+        }
     }
 
     @GetMapping("/api/timecapsules/{id}")
@@ -40,7 +46,7 @@ public class TimeCapsuleController {
         String token = headerToken.substring("Bearer ".length());
         if (token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 작성 권한이 없습니다."));
-        TimeCapsuleResponseDto timeCapsuleResponseDto = timeCapsuleService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).body(timeCapsuleResponseDto);
+        timeCapsuleService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body("타임캡슐 삭제완료");
     }
 }
