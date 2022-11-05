@@ -24,12 +24,8 @@ public class TimeCapsuleController {
         if (token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 작성 권한이 없습니다."));
         int userId = tokenService.findUserIdByJwt(token);
-        try{
         int newId = timeCapsuleService.createTimeCapsule(userId, timeCapsuleRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(newId);
-        }catch (ParseException e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("문자열 변환 과정 오류"));
-        }
     }
 
     @GetMapping("/api/timecapsules/{id}")
