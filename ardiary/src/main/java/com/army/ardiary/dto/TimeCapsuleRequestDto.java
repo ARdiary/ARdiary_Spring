@@ -1,13 +1,16 @@
 package com.army.ardiary.dto;
 
-import com.army.ardiary.domain.entity.ParticipantEntity;
-import com.army.ardiary.domain.entity.TimeCapsuleEntity;
-import lombok.Builder;
+import lombok.Data;
 
 import java.util.ArrayList;
-
-@Builder
+@Data
 public class TimeCapsuleRequestDto {
-    TimeCapsuleEntity timeCapsule;
-    ArrayList<ParticipantEntity> participants;
+    String title;
+    String content;
+    String date;
+    String dueDate;
+    ArrayList<String> participants;
+    String image;
+    String video;
+    String audio;
 }
