@@ -7,8 +7,8 @@
             useGeneratedKeys="true"
             keyProperty="ARMarkerId"
             keyColumn="ARmarker_id">
-        INSERT INTO ARmarker (specifyingImg, latitude, longitude,marker_image_id, content_type)
-        VALUES (#{specifyImg}, #{latitude}, #{longitude}, #{markerImageId}, #{contentType});
+        INSERT INTO ARmarker (specifyingImg, latitude, longitude,marker_image_id, content_type,address)
+        VALUES (#{specifyImg}, #{latitude}, #{longitude}, #{markerImageId}, #{contentType}, #{address});
     </insert>
 
     <select id="selectById"
@@ -40,7 +40,8 @@
                latitude=#{latitude},
                longitude=#{longitude},
                marker_image_id=#{markerImageId},
-               content_type=#{contentType}
+               content_type=#{contentType},
+               address=#{address}
          WHERE ARmarker_id = #{ARMarkerId};
     </update>
 
