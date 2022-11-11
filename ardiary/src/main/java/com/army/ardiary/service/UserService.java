@@ -6,6 +6,7 @@ import com.army.ardiary.dto.FollowDto;
 import com.army.ardiary.dto.GuestBookDto;
 import com.army.ardiary.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -23,6 +24,11 @@ public class UserService {
     private final DiaryRepository diaryRepository;
     private final GuestBookRepository guestBookRepository;
     private final FileService fileService;
+
+    public UserEntity getUserInfo(int userId){
+        UserEntity userEntity = userRepository.selectById(userId);
+        return userEntity;
+    }
 
     public int getUserByNickName(String nickname){
         UserEntity userEntity = userRepository.selectByNickname(nickname);

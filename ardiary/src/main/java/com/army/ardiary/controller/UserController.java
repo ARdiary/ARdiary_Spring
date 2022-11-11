@@ -21,6 +21,17 @@ public class UserController {
     private final TokenService tokenService;
     private final UserService userService;
 
+    @GetMapping("api/users/detail")
+    public ResponseEntity<?> getUserInfo(@RequestHeader(value = "Authorization") String headerToken){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
+        int userId = tokenService.findUserIdByJwt(token);
+        UserEntity userEntity = userService.getUserInfo(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(userEntity);
+    }
+
     @GetMapping("/api/users/nickname")
     public ResponseEntity<?> checkUserByNickName(@RequestParam String nickname){
         int result = userService.getUserByNickName(nickname);
