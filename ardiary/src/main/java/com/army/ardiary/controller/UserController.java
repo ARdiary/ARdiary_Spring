@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class UserController {
     }
 
     @PutMapping("/api/users/profile-image")
-    public ResponseEntity<?> changeProfileImage(@RequestHeader(value = "Authorization")String headerToken, @RequestBody String profileImage){
+    public ResponseEntity<?> changeProfileImage(@RequestHeader(value = "Authorization")String headerToken, @RequestBody MultipartFile[] profileImage){
         String token=headerToken;
         if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());

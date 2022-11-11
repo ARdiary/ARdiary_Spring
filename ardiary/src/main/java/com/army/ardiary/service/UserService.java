@@ -8,6 +8,7 @@ import com.army.ardiary.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,15 +57,15 @@ public class UserService {
         return newUser;
     }
 
-    public UserEntity changeProfileImage(int userId, String newProfileImage){
+    public UserEntity changeProfileImage(int userId, MultipartFile[] newProfileImage){
 
-        //image 파일업로드 코드 추가예정
+        String profileImagePath=fileService.uploadFiles(newProfileImage,"profile","image");
 
         UserEntity userEntity = userRepository.selectById(userId);
 
         UserEntity newUser = UserEntity.builder()
                 .email(userEntity.getEmail())
-                .profileImage(newProfileImage)
+                .profileImage(profileImagePath)
                 .nickname(userEntity.getNickname())
                 .followingNum(userEntity.getFollowingNum())
                 .followerNum(userEntity.getFollowerNum())
