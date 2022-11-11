@@ -31,6 +31,22 @@ public class UserService {
             return id;
         }
     }
+
+    public UserEntity changeNickName(int userId, String newNickName){
+        UserEntity userEntity = userRepository.selectById(userId);
+
+        UserEntity newUser = UserEntity.builder()
+                .email(userEntity.getEmail())
+                .profileImage(userEntity.getProfileImage())
+                .nickname(newNickName)
+                .followingNum(userEntity.getFollowingNum())
+                .followerNum(userEntity.getFollowerNum())
+                .joinDate(userEntity.getJoinDate())
+                .build();
+
+        userRepository.update(newUser);
+        return newUser;
+    }
     public List<FollowDto> findFollowingList(int userId){
 
         List<FollowEntity> follows = followRepository.selectByFollower(userId);

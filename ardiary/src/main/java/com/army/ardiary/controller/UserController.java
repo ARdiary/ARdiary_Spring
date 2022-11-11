@@ -1,5 +1,6 @@
 package com.army.ardiary.controller;
 
+import com.army.ardiary.domain.entity.UserEntity;
 import com.army.ardiary.dto.DiaryDto;
 import com.army.ardiary.dto.ErrorResponse;
 import com.army.ardiary.dto.FollowDto;
@@ -30,6 +31,20 @@ public class UserController {
         }
     }
 
+    @PutMapping("/api/users/nickname")
+    public ResponseEntity<?> changeNickName(@RequestHeader(value = "Authorization") String headerToken, @RequestBody String nickname){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
+        int userId = tokenService.findUserIdByJwt(token);
+        if(token == null || !tokenService.validateToken(token))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
+
+        UserEntity newUser = userService.changeNickName(userId, nickname);
+        return ResponseEntity.status(HttpStatus.OK).body(newUser);
+    }
+    
     @GetMapping("/api/users/following")
     public ResponseEntity<?> loadFollowingList(@RequestHeader(value = "Authorization") String headerToken){
         String token=headerToken;
