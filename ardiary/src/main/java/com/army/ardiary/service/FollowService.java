@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class FollowService {
 
     private final FollowRepository followRepository;
+    private final NotificationService notificationService;
 
     public void addFollow(int follower, int followee){
         FollowEntity followEntity = FollowEntity.builder()
@@ -18,6 +19,7 @@ public class FollowService {
                 .build();
 
         followRepository.insert(followEntity);
+        notificationService.createNewFollowerNotification(follower, followee);
     }
 
     public void deleteFollow(int followId) {

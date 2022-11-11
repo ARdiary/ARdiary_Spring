@@ -7,13 +7,13 @@
             useGeneratedKeys="true"
             keyProperty="timeCapsuleId"
             keyColumn="timecapsule_id">
-        INSERT INTO timecapsule (writer, date, title, content, due_date, image, video, audio, cameraAR_id)
-        VALUES (#{writer}, curdate(), #{title}, #{content}, #{dueDate}, #{image}, #{video}, #{audio}, #{cameraARId});
+        INSERT INTO timecapsule (writer, date, title, content, due_date, image, video, audio, ARMarker_id)
+        VALUES (#{writer}, curdate(), #{title}, #{content}, #{dueDate}, #{image}, #{video}, #{audio}, #{ARMarkerId});
     </insert>
 
     <select id="selectById"
             resultType="TimeCapsuleEntity">
-        SELECT timecapsule_id, writer, date, title, content, due_date, image, video, audio, cameraAR_id
+        SELECT timecapsule_id, writer, date, title, content, due_date, image, video, audio, ARMarker_id
           FROM timecapsule
          WHERE timecapsule_id = #{timeCapsuleId}
     </select>
@@ -32,7 +32,7 @@
                image = #{image},
                video = #{video},
                audio = #{audio},
-               cameraAR_id = #{cameraARId}
+               ARMarker_id = #{ARMarkerId}
          WHERE timecapsule_id = #{timeCapsuleId};
     </update>
 

@@ -11,11 +11,8 @@ import com.army.ardiary.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,25 +23,20 @@ public class TimeCapsuleService {
     private final UserRepository userRepository;
     private final ParticipantRepository participantRepository;
     private final FileService fileService;
+    private final MarkerService markerService;
+    private final NotificationService notificationService;
 
-    public int createTimeCapsule(int userId, TimeCapsuleRequestDto timeCapsuleRequestDto)throws ParseException {
+    public int createTimeCapsule(int userId, TimeCapsuleRequestDto timeCapsuleRequestDto){
 
         String imagePath=fileService.uploadFiles(timeCapsuleRequestDto.getImage(),"timecapsule","image");
         String videoPath=fileService.uploadFiles(timeCapsuleRequestDto.getVideo(),"timecapsule","video");
         String audioPath=fileService.uploadFiles(timeCapsuleRequestDto.getAudio(),"timecapsule","audio");
 
-        String dueDateStr = timeCapsuleRequestDto.getDueDate();
-        // 포맷터
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
-
-        // 문자열 -> Date
-        Date dueDate = formatter.parse(dueDateStr); //ParseException 던짐
-
         TimeCapsuleEntity timeCapsuleEntity = TimeCapsuleEntity.builder()
                 .writer(userId)
                 .title(timeCapsuleRequestDto.getTitle())
                 .content(timeCapsuleRequestDto.getContent())
-                .dueDate(dueDate)
+                .dueDate(timeCapsuleRequestDto.getDueDate())
                 .image(imagePath)
                 .video(videoPath)
                 .audio(audioPath)
@@ -55,7 +47,7 @@ public class TimeCapsuleService {
 
         TimeCapsuleEntity newTimeCapsule = timeCapsuleRepository.selectById(timeCapsuleEntity.getTimeCapsuleId());
 
-        ArrayList<ParticipantEntity> participantEntities = new ArrayList<>();
+        List<ParticipantEntity> participantEntities = new ArrayList<>();
         for(String nickname: timeCapsuleRequestDto.getParticipants()){
             UserEntity userEntity = userRepository.selectByNickname(nickname);
             ParticipantEntity participantEntity = ParticipantEntity.builder()
@@ -67,6 +59,7 @@ public class TimeCapsuleService {
         }
 
         int newTimeCapsuleId = newTimeCapsule.getTimeCapsuleId();
+        notificationService.createTimecapsuleInvitationNotification(newTimeCapsule,participantEntities);
 
         return newTimeCapsuleId;
     }
@@ -78,11 +71,6 @@ public class TimeCapsuleService {
         UserEntity writer = userRepository.selectById(timeCapsuleEntity.getWriter());
         String nickname = writer.getNickname();
 
-        Date date = timeCapsuleEntity.getDate();
-        Date dueDate = timeCapsuleEntity.getDueDate();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String dateStr = dateFormat.format(date);
-        String dueDateStr = dateFormat.format(dueDate);
 
         List<String> participants = new ArrayList<>();
         for(ParticipantEntity participantEntity: participantEntities){
@@ -97,8 +85,8 @@ public class TimeCapsuleService {
                 .writer(nickname)
                 .title(timeCapsuleEntity.getTitle())
                 .content(timeCapsuleEntity.getContent())
-                .date(dateStr)
-                .dueDate(dueDateStr)
+                .date(timeCapsuleEntity.getDate())
+                .dueDate(timeCapsuleEntity.getDueDate())
                 .participants(participants)
                 .image(timeCapsuleEntity.getImage())
                 .video(timeCapsuleEntity.getVideo())
@@ -111,7 +99,7 @@ public class TimeCapsuleService {
     public void delete(int timeCapsuleId){
         TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);
         List<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleId);
-
+        markerService.delete(timeCapsuleEntity.getARMarkerId());
         timeCapsuleRepository.delete(timeCapsuleId);
         for(ParticipantEntity participantEntity: participantEntities){
             int id = participantEntity.getParticipantId();
@@ -119,4 +107,3 @@ public class TimeCapsuleService {
         }
     }
 }
-

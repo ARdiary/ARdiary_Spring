@@ -66,7 +66,7 @@ public class MarkerService {
        String imagePath=fileService.uploadFiles(multipartFile,"marker","specify_image");
        ARMarkerEntity newARMarkerEntity=ARMarkerEntity.builder()
                .markerImageId(arMarkerRequestDto.getMarkerImageId()).latitude(arMarkerRequestDto.getLatitude()).longitude(arMarkerRequestDto.getLongitude())
-               .specifyImg(imagePath).contentType(arMarkerRequestDto.getContentType())
+               .specifyImg(imagePath).contentType(arMarkerRequestDto.getContentType()).address(arMarkerRequestDto.getAddress())
                .build();
        aRMarkerRepository.insert(newARMarkerEntity);
        int newARMarkerId=newARMarkerEntity.getARMarkerId();
