@@ -8,6 +8,7 @@ import com.army.ardiary.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class UserService {
     private final LikeGuestBookRepository likeGuestBookRepository;
     private final DiaryRepository diaryRepository;
     private final GuestBookRepository guestBookRepository;
+    private final FileService fileService;
 
     public int getUserByNickName(String nickname){
         UserEntity userEntity = userRepository.selectByNickname(nickname);
@@ -47,6 +49,27 @@ public class UserService {
         userRepository.update(newUser);
         return newUser;
     }
+
+    public UserEntity changeProfileImage(int userId, String newProfileImage){
+
+        //image 파일업로드 코드 추가예정
+
+        UserEntity userEntity = userRepository.selectById(userId);
+
+        UserEntity newUser = UserEntity.builder()
+                .email(userEntity.getEmail())
+                .profileImage(newProfileImage)
+                .nickname(userEntity.getNickname())
+                .followingNum(userEntity.getFollowingNum())
+                .followerNum(userEntity.getFollowerNum())
+                .joinDate(userEntity.getJoinDate())
+                .build();
+
+        userRepository.update(newUser);
+
+        return newUser;
+    }
+
     public List<FollowDto> findFollowingList(int userId){
 
         List<FollowEntity> follows = followRepository.selectByFollower(userId);

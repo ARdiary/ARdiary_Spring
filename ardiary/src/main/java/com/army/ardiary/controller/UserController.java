@@ -44,7 +44,17 @@ public class UserController {
         UserEntity newUser = userService.changeNickName(userId, nickname);
         return ResponseEntity.status(HttpStatus.OK).body(newUser);
     }
-    
+
+    @PutMapping("/api/users/profile-image")
+    public ResponseEntity<?> changeProfileImage(@RequestHeader(value = "Authorization")String headerToken, @RequestBody String profileImage){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
+        int userId = tokenService.findUserIdByJwt(token);
+        UserEntity newUser = userService.changeProfileImage(userId, profileImage);
+        return ResponseEntity.status(HttpStatus.OK).body(newUser);
+    }
     @GetMapping("/api/users/following")
     public ResponseEntity<?> loadFollowingList(@RequestHeader(value = "Authorization") String headerToken){
         String token=headerToken;
