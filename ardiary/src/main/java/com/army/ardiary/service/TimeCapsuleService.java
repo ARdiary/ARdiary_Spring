@@ -23,6 +23,7 @@ public class TimeCapsuleService {
     private final UserRepository userRepository;
     private final ParticipantRepository participantRepository;
     private final FileService fileService;
+    private final NotificationService notificationService;
 
     public int createTimeCapsule(int userId, TimeCapsuleRequestDto timeCapsuleRequestDto){
 
@@ -57,6 +58,7 @@ public class TimeCapsuleService {
         }
 
         int newTimeCapsuleId = newTimeCapsule.getTimeCapsuleId();
+        notificationService.createTimecapsuleInvitationNotification(newTimeCapsule,participantEntities);
 
         return newTimeCapsuleId;
     }
