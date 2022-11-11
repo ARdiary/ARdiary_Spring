@@ -32,7 +32,10 @@ public class UserController {
 
     @GetMapping("/api/users/following")
     public ResponseEntity<?> loadFollowingList(@RequestHeader(value = "Authorization") String headerToken){
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
@@ -43,7 +46,10 @@ public class UserController {
 
     @GetMapping("/api/users/follower")
     public ResponseEntity<?> loadFollowerList(@RequestHeader(value = "Authorization") String headerToken){
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
@@ -54,7 +60,10 @@ public class UserController {
 
     @GetMapping("/api/users/likes/diaries")
     public ResponseEntity<?> loadLikeDiaryList(@RequestHeader(value = "Authorization") String headerToken){
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
@@ -65,7 +74,10 @@ public class UserController {
 
     @GetMapping("/api/users/likes/guestbooks")
     public ResponseEntity<?> loadLikeGuestBookList(@RequestHeader(value = "Authorization") String headerToken){
-        String token = headerToken.substring("Bearer ".length());
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
         int userId = tokenService.findUserIdByJwt(token);
         if(token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
