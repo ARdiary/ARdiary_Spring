@@ -21,6 +21,16 @@ public class UserService {
     private final LikeGuestBookRepository likeGuestBookRepository;
     private final DiaryRepository diaryRepository;
     private final GuestBookRepository guestBookRepository;
+
+    public int getUserByNickName(String nickname){
+        UserEntity userEntity = userRepository.selectByNickname(nickname);
+        if(userEntity==null) {
+            return 0;
+        }else{
+            int id = userEntity.getUserId();
+            return id;
+        }
+    }
     public List<FollowDto> findFollowingList(int userId){
 
         List<FollowEntity> follows = followRepository.selectByFollower(userId);

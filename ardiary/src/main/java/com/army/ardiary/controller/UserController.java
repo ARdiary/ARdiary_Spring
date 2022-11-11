@@ -9,10 +9,7 @@ import com.army.ardiary.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,16 @@ public class UserController {
 
     private final TokenService tokenService;
     private final UserService userService;
+
+    @GetMapping("/api/users/nickname")
+    public ResponseEntity<?> checkUserByNickName(@RequestParam String nickname){
+        int result = userService.getUserByNickName(nickname);
+        if (result==0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 nickname을 가진 user가 존재하지 않습니다. (닉네임 사용 가능)");
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body("해당 nickname을 가진 user의 id는 "+result+"입니다. (닉네임 사용 불가)");
+        }
+    }
 
     @GetMapping("/api/users/following")
     public ResponseEntity<?> loadFollowingList(@RequestHeader(value = "Authorization") String headerToken){
