@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class UserController {
     private final TokenService tokenService;
     private final UserService userService;
 
-    @GetMapping("/api/user/following")
+    @GetMapping("/api/users/following")
     public ResponseEntity<?> loadFollowingList(@RequestHeader(value = "Authorization") String headerToken){
         String token = headerToken.substring("Bearer ".length());
         int userId = tokenService.findUserIdByJwt(token);
@@ -33,7 +34,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(followings);
     }
 
-    @GetMapping("/api/user/follower")
+    @GetMapping("/api/users/follower")
     public ResponseEntity<?> loadFollowerList(@RequestHeader(value = "Authorization") String headerToken){
         String token = headerToken.substring("Bearer ".length());
         int userId = tokenService.findUserIdByJwt(token);
@@ -44,7 +45,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(followers);
     }
 
-    @GetMapping("/api/likes/diaries")
+    @GetMapping("/api/users/likes/diaries")
     public ResponseEntity<?> loadLikeDiaryList(@RequestHeader(value = "Authorization") String headerToken){
         String token = headerToken.substring("Bearer ".length());
         int userId = tokenService.findUserIdByJwt(token);
@@ -55,7 +56,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(diaryDtos);
     }
 
-    @GetMapping("/api/likes/guestbooks")
+    @GetMapping("/api/users/likes/guestbooks")
     public ResponseEntity<?> loadLikeGuestBookList(@RequestHeader(value = "Authorization") String headerToken){
         String token = headerToken.substring("Bearer ".length());
         int userId = tokenService.findUserIdByJwt(token);
