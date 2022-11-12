@@ -59,22 +59,17 @@ public class UserService {
 
     public UserEntity changeProfileImage(int userId, MultipartFile[] newProfileImage){
 
+
         String profileImagePath=fileService.uploadFiles(newProfileImage,"profile","image");
 
-        UserEntity userEntity = userRepository.selectById(userId);
+        UserEntity originUser = userRepository.selectById(userId);
 
-        UserEntity newUser = UserEntity.builder()
-                .email(userEntity.getEmail())
-                .profileImage(profileImagePath)
-                .nickname(userEntity.getNickname())
-                .followingNum(userEntity.getFollowingNum())
-                .followerNum(userEntity.getFollowerNum())
-                .joinDate(userEntity.getJoinDate())
-                .build();
+        UserEntity updateUser = originUser;
+        updateUser.setProfileImage(profileImagePath);
 
-        userRepository.update(newUser);
+        userRepository.update(updateUser);
 
-        return newUser;
+        return updateUser;
     }
 
     public List<FollowDto> findFollowingList(int userId){
