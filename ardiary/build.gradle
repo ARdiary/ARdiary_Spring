@@ -43,6 +43,7 @@ dependencies {
 	implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
 	// aws cloud framework for aws s3 (aws sdk의 s3관련된 라이브러리만 추가하는 코드도 있는데 혹시 몰라서 포괄적으로 설정함)
 	implementation "org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE"
+	implementation group: 'org.bgee.log4jdbc-log4j2', name:'log4jdbc-log4j2-jdbc4.1', version: '1.16'
 }
 
 tasks.named('test') {

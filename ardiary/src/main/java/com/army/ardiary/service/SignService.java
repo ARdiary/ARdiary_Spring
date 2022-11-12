@@ -32,6 +32,7 @@ public class SignService {
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .accessToken(token)
                 .refreshToken(refreshToken)
+                .nickname(newUser.getNickname())
                 .build();
         return loginResponseDto;
     }
@@ -45,6 +46,7 @@ public class SignService {
         LoginResponseDto loginResponseDto = LoginResponseDto.builder()
                 .accessToken(token)
                 .refreshToken(refreshToken)
+                .nickname(loginUser.getNickname())
                 .build();
         return loginResponseDto;
     }
