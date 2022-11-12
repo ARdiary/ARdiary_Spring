@@ -35,24 +35,6 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.OK).body(diaryDto);
     }
 
-    //이거 유저로 빠질 예정
-    @GetMapping("api/user/diary")
-    public ResponseEntity<?> loadDiaryByUser(@RequestHeader(value = "Authorization") String headerToken){
-        String token=headerToken;
-        if(token.substring(0,7).equals("Bearer ")) {
-            token = headerToken.substring("Bearer ".length());
-        }
-        //토큰 유효성 확인
-        if(!tokenService.validateToken(token)){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
-        }
-        //토큰을 통해 사용자 정보 불러오기
-        int userId = tokenService.findUserIdByJwt(token);
-        //다이어리 불러오기
-        List<DiaryDto> diaryListDto= diaryService.findByWriter(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(diaryListDto);
-    }
-
     @GetMapping("/marker")
     public ResponseEntity<?> loadDiaryByMarker(@RequestParam("id") int markerId){
         DiaryDto diaryDto = diaryService.findByMarker(markerId);
@@ -66,10 +48,8 @@ public class DiaryController {
             token = headerToken.substring("Bearer ".length());
         }
         //토큰 유효성 확인
-        if(token==null){ //토큰을 보내지않은 경우
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("잘못된 요청입니다. 토큰도 함께 보내주세요."));
-        }
-        if(!tokenService.validateToken(token)){ //토큰이 유효하지않은 경우: 지금 이 에러 발생. 토큰이 변조된 상황.
+
+        if(token==null||!tokenService.validateToken(token)){ //토큰이 유효하지않은 경우: 지금 이 에러 발생. 토큰이 변조된 상황.
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
         }
         //토큰을 통해 사용자 정보 불러오기
@@ -107,7 +87,7 @@ public class DiaryController {
             token = headerToken.substring("Bearer ".length());
         }
         //토큰 유효성 확인
-        if(!tokenService.validateToken(token)){
+        if(token==null||!tokenService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
         }
         //토큰을 통해 사용자 정보 불러오기

@@ -26,12 +26,12 @@ public class UserService {
     private final GuestBookRepository guestBookRepository;
     private final FileService fileService;
 
-    public UserEntity getUserInfo(int userId){
+    public UserEntity findUserInfo(int userId){
         UserEntity userEntity = userRepository.selectById(userId);
         return userEntity;
     }
 
-    public int getUserByNickName(String nickname){
+    public int findUserByNickName(String nickname){
         UserEntity userEntity = userRepository.selectByNickname(nickname);
         if(userEntity==null) {
             return 0;
@@ -41,7 +41,7 @@ public class UserService {
         }
     }
 
-    public UserEntity changeNickName(int userId, String newNickName){
+    public UserEntity modifyNickName(int userId, String newNickName){
         UserEntity userEntity = userRepository.selectById(userId);
 
         UserEntity newUser = UserEntity.builder()
@@ -57,7 +57,7 @@ public class UserService {
         return newUser;
     }
 
-    public UserEntity changeProfileImage(int userId, MultipartFile[] newProfileImage){
+    public UserEntity modifyProfileImage(int userId, MultipartFile[] newProfileImage){
 
 
         String profileImagePath=fileService.uploadFiles(newProfileImage,"profile","image");
