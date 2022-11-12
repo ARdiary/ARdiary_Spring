@@ -95,9 +95,9 @@ public class TimeCapsuleService {
                 .build();
         return timeCapsuleResponseDto;
     }
-    public TimeCapsuleResponseDto findByMaarker(int timeCapsuleId){
-        TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);
-        List<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleId);
+    public TimeCapsuleResponseDto findByMarker(int markerId){
+        TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectByMarker(markerId);
+        List<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleEntity.getTimeCapsuleId());
 
         UserEntity writer = userRepository.selectById(timeCapsuleEntity.getWriter());
         String nickname = writer.getNickname();

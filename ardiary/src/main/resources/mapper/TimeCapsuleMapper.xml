@@ -18,6 +18,13 @@
          WHERE timecapsule_id = #{timeCapsuleId}
     </select>
 
+    <select id="selectByMarker"
+            resultType="TimeCapsuleEntity">
+        SELECT timecapsule_id, writer, date, title, content, due_date, image, video, audio, ARMarker_id
+        FROM timecapsule
+        WHERE ARmarker_id = #{markerId}
+    </select>
+
     <update id="update"
             parameterType="TimeCapsuleEntity"
             useGeneratedKeys="true"

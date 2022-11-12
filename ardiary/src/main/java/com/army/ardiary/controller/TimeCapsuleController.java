@@ -1,5 +1,6 @@
 package com.army.ardiary.controller;
 
+import com.army.ardiary.dto.DiaryDto;
 import com.army.ardiary.dto.ErrorResponse;
 import com.army.ardiary.dto.TimeCapsuleRequestDto;
 import com.army.ardiary.dto.TimeCapsuleResponseDto;
@@ -39,6 +40,12 @@ public class TimeCapsuleController {
         if (token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 작성 권한이 없습니다."));
         TimeCapsuleResponseDto timeCapsuleResponseDto = timeCapsuleService.findTimeCapsule(id);
+        return ResponseEntity.status(HttpStatus.OK).body(timeCapsuleResponseDto);
+    }
+
+    @GetMapping("/api/timecapsules/marker")
+    public ResponseEntity<?> loadDiaryByMarker(@RequestParam("id") int markerId){
+        TimeCapsuleResponseDto timeCapsuleResponseDto = timeCapsuleService.findByMarker(markerId);
         return ResponseEntity.status(HttpStatus.OK).body(timeCapsuleResponseDto);
     }
 
