@@ -16,6 +16,7 @@ public interface FollowRepository {
     int update(FollowEntity followEntity);
 
     int delete(int followId);
+    int deleteByFollow(int follower, int followee);
 
     List<FollowEntity> selectByFollower(int follower);
     List<FollowEntity> selectByFollowee(int followee);

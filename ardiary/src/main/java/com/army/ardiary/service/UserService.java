@@ -157,4 +157,24 @@ public class UserService {
         }
         return guestbooks;
     }
+
+    public void setFollowNumByAddFollow(int follower,int followee){
+        UserEntity followerUser=userRepository.selectById(follower);
+        followerUser.setFollowingNum(followerUser.getFollowingNum()+1);
+        userRepository.update(followerUser);
+
+        UserEntity followeeUser=userRepository.selectById(followee);
+        followeeUser.setFollowerNum(followeeUser.getFollowerNum()+1);
+        userRepository.update(followerUser);
+    }
+
+    public void setFollowNumByDeleteFollow(int follower,int followee){
+        UserEntity followerUser=userRepository.selectById(follower);
+        followerUser.setFollowingNum(followerUser.getFollowingNum()-1);
+        userRepository.update(followerUser);
+
+        UserEntity followeeUser=userRepository.selectById(followee);
+        followeeUser.setFollowerNum(followeeUser.getFollowerNum()-1);
+        userRepository.update(followerUser);
+    }
 }

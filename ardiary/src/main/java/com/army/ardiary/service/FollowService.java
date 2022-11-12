@@ -11,7 +11,7 @@ public class FollowService {
 
     private final FollowRepository followRepository;
     private final NotificationService notificationService;
-
+    private final UserService userService;
     public boolean isFollow(int follower, int followee){
         int isF4F=followRepository.selectByFollow(follower,followee);
         if (isF4F!=0){
@@ -29,9 +29,16 @@ public class FollowService {
 
         followRepository.insert(followEntity);
         notificationService.createNewFollowerNotification(follower, followee);
+        userService.setFollowNumByAddFollow(follower, followee);
     }
 
     public void deleteFollow(int followId) {
+        FollowEntity followEntity=followRepository.selectById(followId);
+        userService.setFollowNumByDeleteFollow(followEntity.getFollower(),followEntity.getFollowee() );
         followRepository.delete(followId);
+    }
+    public void deleteFollow(int follower, int followee) {
+        followRepository.deleteByFollow(follower,followee);
+        userService.setFollowNumByDeleteFollow(follower, followee);
     }
 }

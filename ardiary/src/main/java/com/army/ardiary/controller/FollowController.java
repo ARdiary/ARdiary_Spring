@@ -36,9 +36,21 @@ public class FollowController {
         followService.addFollow(userId, followeeId);
         return ResponseEntity.status(HttpStatus.CREATED).body("팔로우 연결 완료");
     }
-
+    @DeleteMapping("/api/follow")
+    public ResponseEntity<?> deleteFollow(@RequestHeader(value = "Authorization") String headerToken, @RequestBody FollowRequestDto followRequestDto){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
+        if(token == null|| !tokenService.validateToken(token))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
+        int userId = tokenService.findUserIdByJwt(token);
+        int followeeId = userService.findUserByNickName(followRequestDto.getFolloweeNickname());
+        followService.deleteFollow(userId,followeeId);
+        return ResponseEntity.status(HttpStatus.OK).body("팔로우 해제 완료");
+    }
     @DeleteMapping("/api/follow/{id}")
-    public ResponseEntity<?> deleteFollow(@RequestHeader(value = "Authorization") String headerToken, @PathVariable int id){
+    public ResponseEntity<?> deleteFollowById(@RequestHeader(value = "Authorization") String headerToken, @PathVariable int id){
         String token=headerToken;
         if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());

@@ -43,6 +43,13 @@
          WHERE follow_id = #{followId}
     </delete>
 
+    <delete id="deleteByFollow"
+            parameterType="int">
+        DELETE
+        FROM follow
+        WHERE followee = #{followee} and follower=#{follower}
+    </delete>
+
     <select id="selectByFollower"
             resultType="FollowEntity">
         SELECT follow_id, follower, followee
