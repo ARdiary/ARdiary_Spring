@@ -1,5 +1,6 @@
 package com.army.ardiary.service;
 
+import com.army.ardiary.domain.entity.DiaryEntity;
 import com.army.ardiary.domain.entity.GuestBookEntity;
 import com.army.ardiary.domain.entity.LikeDiaryEntity;
 import com.army.ardiary.domain.entity.LikeGuestBookEntity;
@@ -45,13 +46,22 @@ public class LikeService {
 
         GuestBookEntity guestBookEntity = guestBookRepository.selectById(guestBookId);
 
+        //해당 방명록 좋아요수+1
         int orig = guestBookEntity.getLikeNum();
         guestBookEntity.setLikeNum(orig+1);
+        guestBookRepository.update(guestBookEntity);
         notificationService.createLikedNotification(likeGuestBookEntity);
     }
 
     public void deleteLikeGuestBook(int likeGuestBookId){
+        LikeGuestBookEntity likeGuestBookEntity=likeGuestBookRepository.select(likeGuestBookId);
         likeGuestBookRepository.delete(likeGuestBookId);
+
+        GuestBookEntity guestBookEntity = guestBookRepository.selectById(likeGuestBookEntity.getGuestBookId());
+
+        //해당 방명록 좋아요수-1
+        guestBookEntity.setLikeNum(guestBookEntity.getLikeNum()-1);
+        guestBookRepository.update(guestBookEntity);
     }
 
 }
