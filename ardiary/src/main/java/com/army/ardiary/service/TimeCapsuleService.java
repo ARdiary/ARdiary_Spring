@@ -95,6 +95,37 @@ public class TimeCapsuleService {
                 .build();
         return timeCapsuleResponseDto;
     }
+    public TimeCapsuleResponseDto findByMaarker(int timeCapsuleId){
+        TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);
+        List<ParticipantEntity> participantEntities = participantRepository.selectByTimeCapsuleId(timeCapsuleId);
+
+        UserEntity writer = userRepository.selectById(timeCapsuleEntity.getWriter());
+        String nickname = writer.getNickname();
+
+
+        List<String> participants = new ArrayList<>();
+        for(ParticipantEntity participantEntity: participantEntities){
+            int userId = participantEntity.getUserId();
+            UserEntity userEntity = userRepository.selectById(userId);
+            String participantNickname = userEntity.getNickname();
+            participants.add(participantNickname);
+        }
+
+        TimeCapsuleResponseDto timeCapsuleResponseDto = TimeCapsuleResponseDto.builder()
+                .timeCapsuleId(timeCapsuleEntity.getTimeCapsuleId())
+                .writer(nickname)
+                .title(timeCapsuleEntity.getTitle())
+                .content(timeCapsuleEntity.getContent())
+                .date(timeCapsuleEntity.getDate())
+                .dueDate(timeCapsuleEntity.getDueDate())
+                .participants(participants)
+                .image(timeCapsuleEntity.getImage())
+                .video(timeCapsuleEntity.getVideo())
+                .audio(timeCapsuleEntity.getAudio())
+                .ARMarkerId(timeCapsuleEntity.getARMarkerId())
+                .build();
+        return timeCapsuleResponseDto;
+    }
 
     public void delete(int timeCapsuleId){
         TimeCapsuleEntity timeCapsuleEntity = timeCapsuleRepository.selectById(timeCapsuleId);

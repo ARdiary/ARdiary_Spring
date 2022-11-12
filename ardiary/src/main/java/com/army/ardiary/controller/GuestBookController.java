@@ -45,18 +45,7 @@ public class GuestBookController {
         return ResponseEntity.status(HttpStatus.OK).body(guestBookDto);
     }
 
-    @GetMapping("/api/guestbooks")
-    public ResponseEntity<?> loadGuestBookListByUser(@RequestHeader(value = "Authorization") String headerToken) {
-        String token=headerToken;
-        if(token.substring(0,7).equals("Bearer ")) {
-            token = headerToken.substring("Bearer ".length());
-        }
-        int userId = tokenService.findUserIdByJwt(token);
-        if (token == null || !tokenService.validateToken(token))
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
-        List<GuestBookDto> guestBookDtoList = guestBookService.findGuestBookListByUser(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(guestBookDtoList);
-    }
+
 
     @PatchMapping("/api/guestbooks/{id}/content")
     public ResponseEntity<?> modifyContent(@RequestHeader(value = "Authorization") String headerToken, @PathVariable("id") int guestBookId, @RequestBody GuestBookContentDto newContent){
