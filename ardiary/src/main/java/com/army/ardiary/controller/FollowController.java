@@ -27,6 +27,9 @@ public class FollowController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
 
         int followeeId = followRequestDto.getFollowee();
+        if (followService.isFollow(userId,followeeId)){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 팔로우 하고 있습니다");
+        }
         followService.addFollow(userId, followeeId);
         return ResponseEntity.status(HttpStatus.CREATED).body("팔로우 연결 완료");
     }

@@ -12,6 +12,15 @@ public class FollowService {
     private final FollowRepository followRepository;
     private final NotificationService notificationService;
 
+    public boolean isFollow(int follower, int followee){
+        int isF4F=followRepository.selectByFollow(follower,followee);
+        if (isF4F!=0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     public void addFollow(int follower, int followee){
         FollowEntity followEntity = FollowEntity.builder()
                 .follower(follower)
