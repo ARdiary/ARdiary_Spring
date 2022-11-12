@@ -18,6 +18,13 @@
          WHERE follow_id = #{followId}
     </select>
 
+    <select id="selectByFollow"
+            resultType="int">
+        SELECT follow_id
+        FROM follow
+        WHERE followee = #{followee} and follower=#{follower}
+    </select>
+
     <update id="update"
             parameterType="FollowEntity"
             useGeneratedKeys="true"

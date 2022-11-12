@@ -19,4 +19,5 @@ public interface FollowRepository {
 
     List<FollowEntity> selectByFollower(int follower);
     List<FollowEntity> selectByFollowee(int followee);
+    int selectByFollow(int follower, int followee);
 }
