@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class UserEntity {
@@ -14,6 +16,6 @@ public class UserEntity {
     private String nickname;
     private int followingNum;
     private int followerNum;
-    private Timestamp joinDate;
-    private Timestamp withdrawalDate;
+    private LocalDateTime joinDate;
+    private LocalDateTime withdrawalDate;
 }
