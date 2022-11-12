@@ -64,7 +64,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("수정 권한이 없습니다"));
         }
 
-        UserEntity newUser = userService.modifyNickName(userId, nickname);
+        UserEntity newUser = userService.modifyNickName(userId, newNickname);
         return ResponseEntity.status(HttpStatus.OK).body(newUser);
     }
 
