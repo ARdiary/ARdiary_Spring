@@ -1,9 +1,10 @@
 package com.army.ardiary.domain.entity;
 
+import com.army.ardiary.controller.TimeCapsuleController;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 @Data
 @Builder
 public class UserEntity {
@@ -13,6 +14,6 @@ public class UserEntity {
     private String nickname;
     private int followingNum;
     private int followerNum;
-    private LocalDateTime joinDate;
-    private LocalDateTime withdrawalDate;
+    private Timestamp joinDate;
+    private Timestamp withdrawalDate;
 }
