@@ -13,11 +13,11 @@ spring:
   #mariadb
   datasource:
     #로그 출력
-#    url: jdbc:log4jdbc:mariadb://armydb.cy6dgaeyzjne.ap-northeast-2.rds.amazonaws.com:3306/ardiary_nf #접속DB명(rds쓸때는 localhost부분 엔드포인트로 바꿔주기), ardiary_nf: no foreign 외래키 속성 제거한 데이터베이스. 외래키 속성 사용하려면 _nf지우면 됨
-#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mariadb://armydb.cy6dgaeyzjne.ap-northeast-2.rds.amazonaws.com:3306/ardiary_nf #접속DB명(rds쓸때는 localhost부분 엔드포인트로 바꿔주기), ardiary_nf: no foreign 외래키 속성 제거한 데이터베이스. 외래키 속성 사용하려면 _nf지우면 됨
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     #로그 미출력
-    url: jdbc:mariadb://armydb.cy6dgaeyzjne.ap-northeast-2.rds.amazonaws.com:3306/ardiary_nf #접속DB명(rds쓸때는 localhost부분 엔드포인트로 바꿔주기), ardiary_nf: no foreign 외래키 속성 제거한 데이터베이스. 외래키 속성 사용하려면 _nf지우면 됨
-    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://armydb.cy6dgaeyzjne.ap-northeast-2.rds.amazonaws.com:3306/ardiary_nf #접속DB명(rds쓸때는 localhost부분 엔드포인트로 바꿔주기), ardiary_nf: no foreign 외래키 속성 제거한 데이터베이스. 외래키 속성 사용하려면 _nf지우면 됨
+#    driver-class-name: org.mariadb.jdbc.Driver
     username: admin
     password: 20220324
   #springfox 사용 가능

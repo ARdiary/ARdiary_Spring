@@ -13,7 +13,7 @@ public class FollowService {
     private final NotificationService notificationService;
     private final UserService userService;
     public boolean isFollow(int follower, int followee){
-        int isF4F=followRepository.selectByFollow(follower,followee);
+        int isF4F=followRepository.isFollow(follower,followee);
         if (isF4F!=0){
             return true;
         }
