@@ -11,4 +11,5 @@ public interface LikeDiaryRepository {
     LikeDiaryEntity select(int likeDiaryId);
     int update(LikeDiaryEntity likeDiaryEntity);
     int delete(int likeGuestBookId);
+    List<LikeDiaryEntity> selectByUser(int userId);
 }
