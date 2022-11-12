@@ -92,7 +92,7 @@ public class UserService {
 
     public List<FollowDto> findFollowerList(int userId){
 
-        List<FollowEntity> follows = followRepository.selectByFollower(userId);
+        List<FollowEntity> follows = followRepository.selectByFollowee(userId);
         List<FollowDto> followers = new ArrayList<>();
 
         for(FollowEntity follow: follows) {
