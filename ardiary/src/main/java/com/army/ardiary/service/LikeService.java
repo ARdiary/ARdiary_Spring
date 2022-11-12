@@ -17,6 +17,7 @@ public class LikeService {
     private final LikeGuestBookRepository likeGuestBookRepository;
     private final DiaryRepository diaryRepository;
     private final GuestBookRepository guestBookRepository;
+    private final NotificationService notificationService;
     public void addLikeDiary(int userId, int diaryId){
         LikeDiaryEntity likeDiaryEntity = LikeDiaryEntity.builder()
                         .userId(userId)
@@ -24,6 +25,7 @@ public class LikeService {
                         .build();
 
         likeDiaryRepository.insert(likeDiaryEntity);
+        notificationService.createLikedNotification(likeDiaryEntity);
 
         //해당 다이어리의 좋아요 수 +1
     }
@@ -45,6 +47,7 @@ public class LikeService {
 
         int orig = guestBookEntity.getLikeNum();
         guestBookEntity.setLikeNum(orig+1);
+        notificationService.createLikedNotification(likeGuestBookEntity);
     }
 
     public void deleteLikeGuestBook(int likeGuestBookId){
