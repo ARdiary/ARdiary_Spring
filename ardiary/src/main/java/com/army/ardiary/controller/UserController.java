@@ -64,14 +64,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("수정 권한이 없습니다"));
         }
 
-        UserEntity newUser = userService.modifyNickName(userId, nickname);
+        UserEntity newUser = userService.modifyNickName(userId, newNickname);
         return ResponseEntity.status(HttpStatus.OK).body(newUser);
     }
 
     @PutMapping("/profile-image")
     public ResponseEntity<?> changeProfileImage(@RequestHeader(value = "Authorization")String headerToken,
                                                 @PathVariable String nickname,
-                                                @RequestBody MultipartFile[] newProfileImage){
+                                                @RequestParam MultipartFile[] newProfileImage){
         String token=headerToken;
         if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());

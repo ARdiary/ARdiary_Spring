@@ -16,7 +16,7 @@
         SELECT user_id, email, profile_image, nickname,
                following_num, follower_num, join_date, withdrawal_date
           FROM user
-         WHERE user_id = #{userId}
+         WHERE user_id = #{userId};
     </select>
 
     <update id="update"
@@ -39,14 +39,14 @@
             parameterType="int">
         DELETE
           FROM user
-         WHERE user_id = #{userId}
+         WHERE user_id = #{userId};
     </delete>
 
     <select id="selectByEmail" resultType="UserEntity">
         SELECT user_id, email, profile_image, nickname,
                following_num, follower_num, join_date,  withdrawal_date
           FROM user
-         WHERE email = #{email}
+         WHERE email = #{email};
     </select>
 
     <select id="selectByNickname"
@@ -54,6 +54,6 @@
         SELECT user_id, email, profile_image, nickname,
                following_num, follower_num, join_date, withdrawal_date
           FROM user
-         WHERE nickname = #{nickname}
+         WHERE nickname = #{nickname};
     </select>
 </mapper>
