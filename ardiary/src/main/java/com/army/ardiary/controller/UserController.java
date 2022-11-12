@@ -1,10 +1,8 @@
 package com.army.ardiary.controller;
 
+import com.army.ardiary.domain.entity.NotificationEntity;
 import com.army.ardiary.domain.entity.UserEntity;
-import com.army.ardiary.dto.DiaryDto;
-import com.army.ardiary.dto.ErrorResponse;
-import com.army.ardiary.dto.FollowDto;
-import com.army.ardiary.dto.GuestBookDto;
+import com.army.ardiary.dto.*;
 import com.army.ardiary.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +22,7 @@ public class UserController {
     private final DiaryService diaryService;
     private final TimeCapsuleService timeCapsuleService;
     private final GuestBookService guestBookService;
+    private final NotificationService notificationService;
 
     @GetMapping
     public ResponseEntity<?> getUserInfo(@RequestHeader(value = "Authorization") String headerToken, @PathVariable String nickname ){
@@ -114,6 +113,23 @@ public class UserController {
         List<FollowDto> followers = userService.findFollowerList(userId);
         return ResponseEntity.status(HttpStatus.OK).body(followers);
     }
+    @GetMapping("/notification")
+    public ResponseEntity<?> loadNotification(@RequestHeader(value = "Authorization") String headerToken,@PathVariable String nickname){
+        String token=headerToken;
+        if(token.substring(0,7).equals("Bearer ")) {
+            token = headerToken.substring("Bearer ".length());
+        }
+        int userId = userService.findUserByNickName(nickname);
+        int userIdByJwt=tokenService.findUserIdByJwt(token);
+        if(token == null || !tokenService.validateToken(token))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
+        else if (userIdByJwt!=userId) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("열람 권한이 없습니다"));
+        }
+
+        List< NotificationEntity> notificationEntityList=notificationService.findByUser(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(notificationEntityList);
+    }
 
     @GetMapping("/likes/diaries")
     public ResponseEntity<?> loadLikeDiaryList(@RequestHeader(value = "Authorization") String headerToken,@PathVariable String nickname){
@@ -170,8 +186,8 @@ public class UserController {
             int userId = userService.findUserByNickName(nickname);
             if (token == null || !tokenService.validateToken(token))
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
-            List<GuestBookDto> guestBookDtoList = guestBookService.findGuestBookListByUser(userId);
-            return ResponseEntity.status(HttpStatus.OK).body(guestBookDtoList);
+            List<TimeCapsuleResponseDto> timeCapsuleResponseDtoList = timeCapsuleService.findTimeCapsuleByWriter(userId);
+            return ResponseEntity.status(HttpStatus.OK).body(timeCapsuleResponseDtoList);
         }
 
     @GetMapping("/guestbooks")
