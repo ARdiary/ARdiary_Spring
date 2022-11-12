@@ -71,7 +71,7 @@ public class UserController {
     @PutMapping("/profile-image")
     public ResponseEntity<?> changeProfileImage(@RequestHeader(value = "Authorization")String headerToken,
                                                 @PathVariable String nickname,
-                                                @RequestBody MultipartFile[] newProfileImage){
+                                                @RequestParam MultipartFile[] newProfileImage){
         String token=headerToken;
         if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());

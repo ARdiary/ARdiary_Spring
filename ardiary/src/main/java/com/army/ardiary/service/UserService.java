@@ -44,17 +44,13 @@ public class UserService {
     public UserEntity modifyNickName(int userId, String newNickName){
         UserEntity userEntity = userRepository.selectById(userId);
 
-        UserEntity newUser = UserEntity.builder()
-                .email(userEntity.getEmail())
-                .profileImage(userEntity.getProfileImage())
-                .nickname(newNickName)
-                .followingNum(userEntity.getFollowingNum())
-                .followerNum(userEntity.getFollowerNum())
-                .joinDate(userEntity.getJoinDate())
-                .build();
+        UserEntity originUser = userRepository.selectById(userId);
 
-        userRepository.update(newUser);
-        return newUser;
+        UserEntity updateUser = originUser;
+        updateUser.setNickname(newNickName);
+
+        userRepository.update(updateUser);
+        return updateUser;
     }
 
     public UserEntity modifyProfileImage(int userId, MultipartFile[] newProfileImage){
