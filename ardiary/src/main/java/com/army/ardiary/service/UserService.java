@@ -165,7 +165,7 @@ public class UserService {
 
         UserEntity followeeUser=userRepository.selectById(followee);
         followeeUser.setFollowerNum(followeeUser.getFollowerNum()+1);
-        userRepository.update(followerUser);
+        userRepository.update(followeeUser);
     }
 
     public void setFollowNumByDeleteFollow(int follower,int followee){
@@ -175,6 +175,6 @@ public class UserService {
 
         UserEntity followeeUser=userRepository.selectById(followee);
         followeeUser.setFollowerNum(followeeUser.getFollowerNum()-1);
-        userRepository.update(followerUser);
+        userRepository.update(followeeUser);
     }
 }
