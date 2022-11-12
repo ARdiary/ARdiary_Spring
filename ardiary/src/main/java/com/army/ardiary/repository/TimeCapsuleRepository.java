@@ -13,6 +13,7 @@ public interface TimeCapsuleRepository {
     int insert(TimeCapsuleEntity timeCapsuleEntity);
 
     TimeCapsuleEntity selectById(int timeCapsuleId);
+    TimeCapsuleEntity selectByMarker(int markerId);
     List<TimeCapsuleEntity> selectByWriter(int userId);
 
     int update(TimeCapsuleEntity timeCapsuleEntity);
