@@ -9,4 +9,5 @@ import lombok.Data;
 public class LoginResponseDto {
     String accessToken;
     String refreshToken;
+    String nickname;
 }
