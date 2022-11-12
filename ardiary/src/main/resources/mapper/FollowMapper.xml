@@ -18,9 +18,9 @@
          WHERE follow_id = #{followId}
     </select>
 
-    <select id="selectByFollow"
+    <select id="isFollow"
             resultType="int">
-        SELECT follow_id
+        SELECT count(*)
         FROM follow
         WHERE followee = #{followee} and follower=#{follower}
     </select>
