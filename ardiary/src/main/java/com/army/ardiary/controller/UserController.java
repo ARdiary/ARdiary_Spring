@@ -22,20 +22,22 @@ public class UserController {
     private final TokenService tokenService;
     private final UserService userService;
 
-    @GetMapping("api/users/detail")
-    public ResponseEntity<?> getUserInfo(@RequestHeader(value = "Authorization") String headerToken){
+    @GetMapping("api/users/{nickname}")
+    public ResponseEntity<?> getUserInfo(@RequestHeader(value = "Authorization") String headerToken, @PathVariable String nickname ){
         String token=headerToken;
         if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());
         }
+        if(token == null || !tokenService.validateToken(token))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
         int userId = tokenService.findUserIdByJwt(token);
-        UserEntity userEntity = userService.getUserInfo(userId);
+        UserEntity userEntity = userService.findUserInfo(userId);
         return ResponseEntity.status(HttpStatus.OK).body(userEntity);
     }
 
     @GetMapping("/api/users/nickname")
     public ResponseEntity<?> checkUserByNickName(@RequestParam String nickname){
-        int result = userService.getUserByNickName(nickname);
+        int result = userService.findUserByNickName(nickname);
         if (result==0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 nickname을 가진 user가 존재하지 않습니다. (닉네임 사용 가능)");
         }else{
@@ -53,7 +55,7 @@ public class UserController {
         if(token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패"));
 
-        UserEntity newUser = userService.changeNickName(userId, nickname);
+        UserEntity newUser = userService.modifyNickName(userId, nickname);
         return ResponseEntity.status(HttpStatus.OK).body(newUser);
     }
 
@@ -64,7 +66,7 @@ public class UserController {
             token = headerToken.substring("Bearer ".length());
         }
         int userId = tokenService.findUserIdByJwt(token);
-        UserEntity newUser = userService.changeProfileImage(userId, profileImage);
+        UserEntity newUser = userService.modifyProfileImage(userId, profileImage);
         return ResponseEntity.status(HttpStatus.OK).body(newUser);
     }
     @GetMapping("/api/users/following")
