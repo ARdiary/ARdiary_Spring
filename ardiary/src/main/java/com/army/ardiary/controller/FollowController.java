@@ -4,6 +4,7 @@ import com.army.ardiary.dto.ErrorResponse;
 import com.army.ardiary.dto.FollowRequestDto;
 import com.army.ardiary.service.FollowService;
 import com.army.ardiary.service.TokenService;
+import com.army.ardiary.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ public class FollowController {
 
     private final TokenService tokenService;
     private final FollowService followService;
+    private final UserService userService;
 
     @PostMapping("/api/follow")
-    public ResponseEntity<?> addFollow(@RequestHeader(value = "Authorization") String headerToken, @RequestBody FollowRequestDto followRequestDto){
+    public ResponseEntity<?> addFollow(@RequestHeader(value = "Authorization") String headerToken,
+                                       @RequestBody FollowRequestDto followRequestDto ){
         String token=headerToken;
         if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());
@@ -26,8 +29,8 @@ public class FollowController {
         if (token == null || !tokenService.validateToken(token))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("토큰 인증 실패. 조회 권한이 없습니다."));
 
-        int followeeId = followRequestDto.getFollowee();
-        if (followService.isFollow(userId,followeeId)){
+        int followeeId = userService.findUserByNickName(followRequestDto.getFolloweeNickname());
+        if (followService.isFollow(userId, followeeId)){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 팔로우 하고 있습니다");
         }
         followService.addFollow(userId, followeeId);
