@@ -22,7 +22,7 @@
             resultType="NotificationEntity">
         SELECT *
         FROM notification
-        WHERE user_id = #{userId};
+        WHERE user_id = #{userId} or user_id=0;
     </select>
     <select id="selectAll"
             resultType="NotificationEntity">
