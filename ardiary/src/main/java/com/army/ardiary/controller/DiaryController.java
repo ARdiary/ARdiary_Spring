@@ -42,7 +42,7 @@ public class DiaryController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> writeDiary(@RequestHeader(value = "Authorization") String headerToken, DiaryRequestDto diaryRequestDto){
+    public ResponseEntity<?> writeDiary(@RequestHeader(value = "Authorization") String headerToken, @RequestBody DiaryRequestDto diaryRequestDto){
         String token=headerToken;
         if(token.substring(0,7).equals("Bearer ")) {
             token = headerToken.substring("Bearer ".length());

@@ -201,8 +201,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("사용자 인증이 불가합니다. 잘못된 접근입니다."));
         }
         int userId = userService.findUserByNickName(nickname);
-        //다이어리 불러오기
-        List<DiaryDto> diaryListDto= diaryService.findByWriter(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(diaryListDto);
+        //방명록 불러오기
+        List<GuestBookDto> guestBookDtoList = guestBookService.findGuestBookListByUser(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(guestBookDtoList);
     }
 }
